@@ -62,6 +62,86 @@ function Library:CreateWindow(Config)
         end
     end
 
+    -- Game Lock / PlaceId Check
+    if Config.PlaceId and type(Config.PlaceId) == "number" and Config.PlaceId > 0 then
+        if game.PlaceId ~= Config.PlaceId then
+            local ErrorGui = Instance.new("ScreenGui")
+            ErrorGui.Name = "ErrorUI"
+            ErrorGui.ResetOnSpawn = false
+            pcall(function() ErrorGui.Parent = game:GetService("CoreGui") end)
+            if not ErrorGui.Parent then ErrorGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+
+            local ErrorFrame = Instance.new("Frame")
+            ErrorFrame.Size = UDim2.new(0, 400, 0, 240)
+            ErrorFrame.Position = UDim2.new(0.5, -200, 0.5, -120)
+            ErrorFrame.BackgroundColor3 = THEME.Background
+            ErrorFrame.BorderSizePixel = 0
+            ErrorFrame.Parent = ErrorGui
+
+            local ErrorCorner = Instance.new("UICorner")
+            ErrorCorner.CornerRadius = UDim.new(0, 10)
+            ErrorCorner.Parent = ErrorFrame
+
+            local ErrorStroke = Instance.new("UIStroke")
+            ErrorStroke.Thickness = 2
+            ErrorStroke.Parent = ErrorFrame
+
+            local StrokeGrad = Instance.new("UIGradient")
+            StrokeGrad.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 60, 60)),
+                ColorSequenceKeypoint.new(1, THEME.Accent)
+            }
+            StrokeGrad.Rotation = 45
+            StrokeGrad.Parent = ErrorStroke
+
+            local Icon = Instance.new("ImageLabel")
+            Icon.Size = UDim2.new(0, 60, 0, 60)
+            Icon.Position = UDim2.new(0.5, -30, 0.12, 0)
+            Icon.BackgroundTransparency = 1
+            Icon.Image = "rbxassetid://114509698380342" -- Aetherium Logo
+            Icon.Parent = ErrorFrame
+
+            local Title = Instance.new("TextLabel")
+            Title.Text = "Incorrect Game"
+            Title.Font = Enum.Font.GothamBold
+            Title.TextSize = 22
+            Title.TextColor3 = THEME.TextColor
+            Title.Size = UDim2.new(1, 0, 0, 30)
+            Title.Position = UDim2.new(0, 0, 0.42, 0)
+            Title.BackgroundTransparency = 1
+            Title.Parent = ErrorFrame
+
+            local Desc = Instance.new("TextLabel")
+            Desc.Text = "This script is locked to a specific game.\nPlease join the correct game to use it."
+            Desc.Font = Enum.Font.Gotham
+            Desc.TextSize = 14
+            Desc.TextColor3 = THEME.TextDim
+            Desc.Size = UDim2.new(0.9, 0, 0, 40)
+            Desc.Position = UDim2.new(0.05, 0, 0.58, 0)
+            Desc.BackgroundTransparency = 1
+            Desc.TextWrapped = true
+            Desc.Parent = ErrorFrame
+
+            local CloseBtn = Instance.new("TextButton")
+            CloseBtn.Size = UDim2.new(0.4, 0, 0, 35)
+            CloseBtn.Position = UDim2.new(0.3, 0, 0.8, 0)
+            CloseBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            CloseBtn.Text = "Close"
+            CloseBtn.TextColor3 = Color3.new(1,1,1)
+            CloseBtn.Font = Enum.Font.GothamBold
+            CloseBtn.TextSize = 14
+            CloseBtn.Parent = ErrorFrame
+            Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 6)
+            
+            CloseBtn.MouseButton1Click:Connect(function() ErrorGui:Destroy() end)
+
+            local DummyWindow = {}
+            function DummyWindow:Tab() return {Button=function()end,Toggle=function()end,Slider=function()end,Dropdown=function()end,Label=function()end} end
+            function DummyWindow:Notification() end
+            return DummyWindow
+        end
+    end
+
     -- ScreenGui
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "ModernUI_" .. math.random(1000, 9999)
@@ -234,35 +314,6 @@ function Library:CreateWindow(Config)
     FloatingStroke.Thickness = 1.5
     FloatingStroke.Color = Color3.fromRGB(255, 255, 255)
     FloatingStroke.Parent = FloatingWidget
-
-    -- Water Effect (Background Animation on Drag)
-    local WaterFrame = Instance.new("Frame")
-    WaterFrame.Name = "WaterEffect"
-    WaterFrame.Size = UDim2.new(1, 0, 1, 0)
-    WaterFrame.BackgroundColor3 = THEME.Accent
-    WaterFrame.BackgroundTransparency = 1
-    WaterFrame.ZIndex = 1
-    WaterFrame.Parent = FloatingWidget
-
-    local WaterCorner = Instance.new("UICorner")
-    WaterCorner.CornerRadius = UDim.new(0, 8)
-    WaterCorner.Parent = WaterFrame
-
-    local WaterGradient = Instance.new("UIGradient")
-    WaterGradient.Transparency = NumberSequence.new{
-        NumberSequenceKeypoint.new(0, 1),
-        NumberSequenceKeypoint.new(0.4, 1),
-        NumberSequenceKeypoint.new(0.5, 0.6),
-        NumberSequenceKeypoint.new(0.6, 1),
-        NumberSequenceKeypoint.new(1, 1)
-    }
-    WaterGradient.Rotation = 45
-    WaterGradient.Parent = WaterFrame
-
-    FloatingWidget:GetPropertyChangedSignal("Position"):Connect(function()
-        local pos = FloatingWidget.AbsolutePosition
-        WaterGradient.Offset = Vector2.new(pos.X / 300, pos.Y / 300)
-    end)
 
     -- Aura (White Glow)
     local Aura = Instance.new("ImageLabel")
