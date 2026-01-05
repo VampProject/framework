@@ -235,35 +235,6 @@ function Library:CreateWindow(Config)
     FloatingStroke.Color = Color3.fromRGB(255, 255, 255)
     FloatingStroke.Parent = FloatingWidget
 
-    -- Water Effect (Background Animation on Drag)
-    local WaterFrame = Instance.new("Frame")
-    WaterFrame.Name = "WaterEffect"
-    WaterFrame.Size = UDim2.new(1, 0, 1, 0)
-    WaterFrame.BackgroundColor3 = THEME.Accent
-    WaterFrame.BackgroundTransparency = 1
-    WaterFrame.ZIndex = 1
-    WaterFrame.Parent = FloatingWidget
-
-    local WaterCorner = Instance.new("UICorner")
-    WaterCorner.CornerRadius = UDim.new(0, 8)
-    WaterCorner.Parent = WaterFrame
-
-    local WaterGradient = Instance.new("UIGradient")
-    WaterGradient.Transparency = NumberSequence.new{
-        NumberSequenceKeypoint.new(0, 1),
-        NumberSequenceKeypoint.new(0.4, 1),
-        NumberSequenceKeypoint.new(0.5, 0.6),
-        NumberSequenceKeypoint.new(0.6, 1),
-        NumberSequenceKeypoint.new(1, 1)
-    }
-    WaterGradient.Rotation = 45
-    WaterGradient.Parent = WaterFrame
-
-    FloatingWidget:GetPropertyChangedSignal("Position"):Connect(function()
-        local pos = FloatingWidget.AbsolutePosition
-        WaterGradient.Offset = Vector2.new(pos.X / 300, pos.Y / 300)
-    end)
-
     -- Aura (White Glow)
     local Aura = Instance.new("ImageLabel")
     Aura.Name = "Aura"
