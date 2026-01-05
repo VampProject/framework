@@ -214,7 +214,7 @@ function Library:CreateWindow(Config)
     -- Topbar
     local Topbar = Instance.new("Frame")
     Topbar.Name = "Topbar"
-    Topbar.Size = UDim2.new(1, 0, 0, 35)
+    Topbar.Size = UDim2.new(1, 0, 0, 40)
     Topbar.BackgroundColor3 = THEME.Topbar
     Topbar.BorderSizePixel = 0
     Topbar.Parent = Bg
@@ -232,8 +232,8 @@ function Library:CreateWindow(Config)
 
     local Icon = Instance.new("ImageLabel")
     Icon.Name = "Icon"
-    Icon.Size = UDim2.new(0, 32, 0, 32)
-    Icon.Position = UDim2.new(0, 12, 0.5, -16)
+    Icon.Size = UDim2.new(0, 38, 0, 38)
+    Icon.Position = UDim2.new(0, 10, 0.5, -19)
     Icon.BackgroundTransparency = 1
     Icon.Image = "rbxassetid://114509698380342"
     Icon.Parent = Topbar
@@ -970,6 +970,12 @@ function Library:CreateWindow(Config)
             local LabelPad = Instance.new("UIPadding")
             LabelPad.PaddingLeft = UDim.new(0, 12)
             LabelPad.Parent = Label
+
+            local LabelMethods = {}
+            function LabelMethods:SetText(NewText)
+                Label.Text = NewText
+            end
+            return LabelMethods
         end
 
         return TabObj
