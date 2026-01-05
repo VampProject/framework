@@ -880,43 +880,51 @@ function Library:CreateWindow(Config)
                 TweenService:Create(DropStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
             end)
 
-            for _, option in ipairs(Options) do
-                local OptBtn = Instance.new("TextButton")
-                OptBtn.Size = UDim2.new(1, 0, 0, 30)
-                OptBtn.BackgroundColor3 = THEME.ElementBackground
-                OptBtn.Text = option
-                OptBtn.Font = Enum.Font.Gotham
-                OptBtn.TextColor3 = THEME.TextDim
-                OptBtn.TextSize = 14
-                OptBtn.TextXAlignment = Enum.TextXAlignment.Left
-                OptBtn.Parent = OptionList
+            local function RefreshList(NewOptions)
+                for _, v in pairs(OptionList:GetChildren()) do
+                    if v:IsA("TextButton") then v:Destroy() end
+                end
+                
+                for _, option in ipairs(NewOptions) do
+                    local OptBtn = Instance.new("TextButton")
+                    OptBtn.Size = UDim2.new(1, 0, 0, 30)
+                    OptBtn.BackgroundColor3 = THEME.ElementBackground
+                    OptBtn.Text = option
+                    OptBtn.Font = Enum.Font.Gotham
+                    OptBtn.TextColor3 = THEME.TextDim
+                    OptBtn.TextSize = 14
+                    OptBtn.TextXAlignment = Enum.TextXAlignment.Left
+                    OptBtn.Parent = OptionList
 
-                local OptPad = Instance.new("UIPadding")
-                OptPad.PaddingLeft = UDim.new(0, 12)
-                OptPad.Parent = OptBtn
+                    local OptPad = Instance.new("UIPadding")
+                    OptPad.PaddingLeft = UDim.new(0, 12)
+                    OptPad.Parent = OptBtn
 
-                OptBtn.MouseEnter:Connect(function()
-                    TweenService:Create(OptBtn, TweenInfo.new(0.2), {
-                        BackgroundColor3 = Color3.fromRGB(45, 45, 45),
-                        TextColor3 = THEME.TextColor
-                    }):Play()
-                end)
-                OptBtn.MouseLeave:Connect(function()
-                    TweenService:Create(OptBtn, TweenInfo.new(0.2), {
-                        BackgroundColor3 = THEME.ElementBackground,
-                        TextColor3 = THEME.TextDim
-                    }):Play()
-                end)
+                    OptBtn.MouseEnter:Connect(function()
+                        TweenService:Create(OptBtn, TweenInfo.new(0.2), {
+                            BackgroundColor3 = Color3.fromRGB(45, 45, 45),
+                            TextColor3 = THEME.TextColor
+                        }):Play()
+                    end)
+                    OptBtn.MouseLeave:Connect(function()
+                        TweenService:Create(OptBtn, TweenInfo.new(0.2), {
+                            BackgroundColor3 = THEME.ElementBackground,
+                            TextColor3 = THEME.TextDim
+                        }):Play()
+                    end)
 
-                OptBtn.MouseButton1Click:Connect(function()
-                    Selected = option
-                    SelectedLabel.Text = Selected
-                    pcall(Callback, Selected)
-                    Expanded = false
-                    TweenService:Create(DropdownFrame, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 0, 36)}):Play()
-                    TweenService:Create(Arrow, TweenInfo.new(0.3), {Rotation = 0}):Play()
-                end)
+                    OptBtn.MouseButton1Click:Connect(function()
+                        Selected = option
+                        SelectedLabel.Text = Selected
+                        pcall(Callback, Selected)
+                        Expanded = false
+                        TweenService:Create(DropdownFrame, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 0, 36)}):Play()
+                        TweenService:Create(Arrow, TweenInfo.new(0.3), {Rotation = 0}):Play()
+                    end)
+                end
             end
+
+            RefreshList(Options)
 
             DropBtn.MouseButton1Click:Connect(function()
                 Expanded = not Expanded
@@ -924,6 +932,26 @@ function Library:CreateWindow(Config)
                 TweenService:Create(DropdownFrame, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
                 TweenService:Create(Arrow, TweenInfo.new(0.3), {Rotation = Expanded and 180 or 0}):Play()
             end)
+
+            local DropdownMethods = {}
+            function DropdownMethods:Refresh(NewOptions, NewDefault)
+                Options = NewOptions
+                RefreshList(Options)
+                if NewDefault then
+                    Selected = NewDefault
+                    SelectedLabel.Text = Selected
+                elseif not table.find(Options, Selected) then
+                    Selected = Options[1] or "None"
+                    SelectedLabel.Text = Selected
+                end
+                
+                if Expanded then
+                    local targetHeight = 36 + (#Options * 30)
+                    TweenService:Create(DropdownFrame, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+                end
+            end
+            
+            return DropdownMethods
         end
 
         -- Label
