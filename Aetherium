@@ -1039,7 +1039,7 @@ function Library:CreateWindow(Config)
         local Dimmer = Instance.new("Frame")
         Dimmer.Size = UDim2.new(1, 0, 1, 0)
         Dimmer.BackgroundColor3 = Color3.new(0, 0, 0)
-        Dimmer.BackgroundTransparency = 0.5
+        Dimmer.BackgroundTransparency = 1
         Dimmer.ZIndex = 99
         Dimmer.Parent = ScreenGui
 
@@ -1070,7 +1070,7 @@ function Library:CreateWindow(Config)
         MakeDraggable(KeyFrame, KeyFrame)
 
         local KeyTitle = Instance.new("TextLabel")
-        KeyTitle.Text = "Authentication"
+        KeyTitle.Text = "Aetherium"
         KeyTitle.Font = Enum.Font.GothamBold
         KeyTitle.TextSize = 18
         KeyTitle.TextColor3 = THEME.TextColor
