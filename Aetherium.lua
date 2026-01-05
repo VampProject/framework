@@ -1062,6 +1062,32 @@ function Library:CreateWindow(Config)
         KeyStroke.Color = THEME.Stroke
         KeyStroke.Parent = KeyFrame
 
+        -- Triangle Particles (KeySystem Background)
+        task.spawn(function()
+            while KeyFrame.Parent do
+                local Particle = Instance.new("ImageLabel")
+                Particle.Size = UDim2.new(0, math.random(6, 10), 0, math.random(6, 10))
+                Particle.Position = UDim2.new(math.random(0, 100)/100, 0, 1, 0)
+                Particle.BackgroundTransparency = 1
+                Particle.Image = "rbxassetid://8539427585" -- Triangle
+                Particle.ImageColor3 = Color3.new(1, 1, 1)
+                Particle.ImageTransparency = 0.8
+                Particle.Rotation = math.random(0, 360)
+                Particle.ZIndex = 1
+                Particle.Parent = KeyFrame
+                
+                local duration = math.random(20, 40) / 10
+                TweenService:Create(Particle, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
+                    Position = UDim2.new(Particle.Position.X.Scale, 0, -0.2, 0),
+                    ImageTransparency = 1,
+                    Rotation = Particle.Rotation + math.random(-90, 90)
+                }):Play()
+                
+                task.delay(duration, function() Particle:Destroy() end)
+                task.wait(0.2)
+            end
+        end)
+
         -- Header Section
         local Header = Instance.new("Frame")
         Header.Name = "Header"
@@ -1120,7 +1146,7 @@ function Library:CreateWindow(Config)
         KeyInput.Position = UDim2.new(0.075, 0, 0.15, 0)
         KeyInput.BackgroundColor3 = THEME.ElementBackground
         KeyInput.TextColor3 = THEME.TextColor
-        KeyInput.PlaceholderText = "Enter License Key..."
+        KeyInput.PlaceholderText = "Write your key..."
         KeyInput.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
         KeyInput.Font = Enum.Font.Gotham
         KeyInput.TextSize = 14
