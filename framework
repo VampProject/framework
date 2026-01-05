@@ -242,7 +242,7 @@ function Library:CreateWindow(Config)
     Aura.Position = UDim2.new(0.5, 0, 0.5, 0)
     Aura.AnchorPoint = Vector2.new(0.5, 0.5)
     Aura.BackgroundTransparency = 1
-    Aura.Image = "rbxassetid://5028857472" -- Soft Glow
+    Aura.Image = "rbxassetid://7383350722" -- Soft Glow
     Aura.ImageColor3 = Color3.new(1, 1, 1)
     Aura.ImageTransparency = 0.6
     Aura.ZIndex = 0
@@ -255,7 +255,7 @@ function Library:CreateWindow(Config)
             Particle.Size = UDim2.new(0, math.random(6, 10), 0, math.random(6, 10))
             Particle.Position = UDim2.new(math.random(10, 190)/200, 0, 1, 0)
             Particle.BackgroundTransparency = 1
-            Particle.Image = "rbxassetid://241685484" -- Triangle
+            Particle.Image = "rbxassetid://8539427585" -- Triangle
             Particle.ImageColor3 = Color3.new(1, 1, 1)
             Particle.ImageTransparency = 0.4
             Particle.Rotation = math.random(0, 360)
