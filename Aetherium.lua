@@ -1037,56 +1037,95 @@ function Library:CreateWindow(Config)
         MainFrame.Visible = false -- Ocultar UI principal mientras se valida
         
         local Dimmer = Instance.new("Frame")
+        Dimmer.Name = "KeySystemDimmer"
         Dimmer.Size = UDim2.new(1, 0, 1, 0)
         Dimmer.BackgroundColor3 = Color3.new(0, 0, 0)
-        Dimmer.BackgroundTransparency = 1
-        Dimmer.ZIndex = 99
+        Dimmer.BackgroundTransparency = 0.3
+        Dimmer.ZIndex = 9999
         Dimmer.Parent = ScreenGui
 
         local KeyFrame = Instance.new("Frame")
-        KeyFrame.Size = UDim2.new(0, 350, 0, 250)
-        KeyFrame.Position = UDim2.new(0.5, -175, 0.5, -90)
+        KeyFrame.Name = "KeyFrame"
+        KeyFrame.Size = UDim2.new(0, 420, 0, 260)
+        KeyFrame.Position = UDim2.new(0.5, -210, 0.5, -130)
         KeyFrame.BackgroundColor3 = THEME.Background
         KeyFrame.BorderSizePixel = 0
+        KeyFrame.ClipsDescendants = true
         KeyFrame.Parent = Dimmer
 
         local KeyCorner = Instance.new("UICorner")
-        KeyCorner.CornerRadius = THEME.CornerRadius
+        KeyCorner.CornerRadius = UDim.new(0, 10)
         KeyCorner.Parent = KeyFrame
 
         local KeyStroke = Instance.new("UIStroke")
-        KeyStroke.Thickness = 1
+        KeyStroke.Thickness = 1.5
         KeyStroke.Color = THEME.Stroke
         KeyStroke.Parent = KeyFrame
 
-        local KeyBorderGradient = Instance.new("UIGradient")
-        KeyBorderGradient.Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, THEME.Accent),
-            ColorSequenceKeypoint.new(1, THEME.Accent2)
-        }
-        KeyBorderGradient.Rotation = 45
-        KeyBorderGradient.Parent = KeyStroke
+        -- Header Section
+        local Header = Instance.new("Frame")
+        Header.Name = "Header"
+        Header.Size = UDim2.new(1, 0, 0, 70)
+        Header.BackgroundTransparency = 1
+        Header.Parent = KeyFrame
+
+        local HeaderIcon = Instance.new("ImageLabel")
+        HeaderIcon.Size = UDim2.new(0, 40, 0, 40)
+        HeaderIcon.Position = UDim2.new(0, 20, 0.5, -20)
+        HeaderIcon.BackgroundTransparency = 1
+        HeaderIcon.Image = "rbxassetid://114509698380342" -- Aetherium Icon
+        HeaderIcon.Parent = Header
+
+        local HeaderTitle = Instance.new("TextLabel")
+        HeaderTitle.Text = "Aetherium"
+        HeaderTitle.Font = Enum.Font.GothamBold
+        HeaderTitle.TextSize = 20
+        HeaderTitle.TextColor3 = THEME.TextColor
+        HeaderTitle.Size = UDim2.new(0, 200, 0, 25)
+        HeaderTitle.Position = UDim2.new(0, 70, 0, 12)
+        HeaderTitle.TextXAlignment = Enum.TextXAlignment.Left
+        HeaderTitle.BackgroundTransparency = 1
+        HeaderTitle.Parent = Header
+
+        local HeaderSubtitle = Instance.new("TextLabel")
+        HeaderSubtitle.Text = "Key System v2.5 | Secure Gateway"
+        HeaderSubtitle.Font = Enum.Font.Gotham
+        HeaderSubtitle.TextSize = 12
+        HeaderSubtitle.TextColor3 = THEME.Accent -- Subtitle color
+        HeaderSubtitle.Size = UDim2.new(0, 200, 0, 15)
+        HeaderSubtitle.Position = UDim2.new(0, 70, 0, 38)
+        HeaderSubtitle.TextXAlignment = Enum.TextXAlignment.Left
+        HeaderSubtitle.BackgroundTransparency = 1
+        HeaderSubtitle.Parent = Header
+
+        local Separator = Instance.new("Frame")
+        Separator.Size = UDim2.new(1, 0, 0, 1)
+        Separator.Position = UDim2.new(0, 0, 1, 0)
+        Separator.BackgroundColor3 = THEME.Stroke
+        Separator.BorderSizePixel = 0
+        Separator.Parent = Header
 
         MakeDraggable(KeyFrame, KeyFrame)
 
-        local KeyTitle = Instance.new("TextLabel")
-        KeyTitle.Text = "Aetherium"
-        KeyTitle.Font = Enum.Font.GothamBold
-        KeyTitle.TextSize = 18
-        KeyTitle.TextColor3 = THEME.TextColor
-        KeyTitle.Size = UDim2.new(1, 0, 0, 40)
-        KeyTitle.BackgroundTransparency = 1
-        KeyTitle.Parent = KeyFrame
+        -- Content Section
+        local Content = Instance.new("Frame")
+        Content.Name = "Content"
+        Content.Size = UDim2.new(1, 0, 1, -70)
+        Content.Position = UDim2.new(0, 0, 0, 70)
+        Content.BackgroundTransparency = 1
+        Content.Parent = KeyFrame
 
         local KeyInput = Instance.new("TextBox")
-        KeyInput.Size = UDim2.new(0.8, 0, 0, 40)
-        KeyInput.Position = UDim2.new(0.1, 0, 0.22, 0)
+        KeyInput.Size = UDim2.new(0.85, 0, 0, 45)
+        KeyInput.Position = UDim2.new(0.075, 0, 0.15, 0)
         KeyInput.BackgroundColor3 = THEME.ElementBackground
         KeyInput.TextColor3 = THEME.TextColor
-        KeyInput.PlaceholderText = "Enter Key..."
+        KeyInput.PlaceholderText = "Enter License Key..."
+        KeyInput.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
         KeyInput.Font = Enum.Font.Gotham
         KeyInput.TextSize = 14
-        KeyInput.Parent = KeyFrame
+        KeyInput.TextXAlignment = Enum.TextXAlignment.Center
+        KeyInput.Parent = Content
 
         local InputStroke = Instance.new("UIStroke")
         InputStroke.Thickness = 1
@@ -1097,56 +1136,101 @@ function Library:CreateWindow(Config)
         InputCorner.CornerRadius = UDim.new(0, 6)
         InputCorner.Parent = KeyInput
 
-        local InputGradient = Instance.new("UIGradient")
-        InputGradient.Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
-        }
-        InputGradient.Rotation = 90
-        InputGradient.Parent = KeyInput
+        -- Focus effect on input
+        KeyInput.Focused:Connect(function()
+            TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = THEME.Accent}):Play()
+        end)
+        KeyInput.FocusLost:Connect(function()
+            TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
+        end)
 
         local SubmitBtn = Instance.new("TextButton")
-        SubmitBtn.Size = UDim2.new(0.8, 0, 0, 40)
-        SubmitBtn.Position = UDim2.new(0.1, 0, 0.48, 0)
+        SubmitBtn.Size = UDim2.new(0.4, 0, 0, 40)
+        SubmitBtn.Position = UDim2.new(0.525, 0, 0.55, 0)
         SubmitBtn.BackgroundColor3 = THEME.Accent
-        SubmitBtn.Text = "Submit"
+        SubmitBtn.Text = "Verify Key"
         SubmitBtn.Font = Enum.Font.GothamBold
-        SubmitBtn.TextColor3 = THEME.TextColor
+        SubmitBtn.TextColor3 = Color3.new(1,1,1)
         SubmitBtn.TextSize = 14
-        SubmitBtn.Parent = KeyFrame
+        SubmitBtn.AutoButtonColor = false
+        SubmitBtn.ClipsDescendants = true
+        SubmitBtn.Parent = Content
 
         local SubmitCorner = Instance.new("UICorner")
         SubmitCorner.CornerRadius = UDim.new(0, 6)
         SubmitCorner.Parent = SubmitBtn
 
-        local SubmitGradient = Instance.new("UIGradient")
-        SubmitGradient.Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
-        }
-        SubmitGradient.Rotation = 90
-        SubmitGradient.Parent = SubmitBtn
+        -- Progress Bar inside button
+        local ProgressBar = Instance.new("Frame")
+        ProgressBar.Name = "ProgressBar"
+        ProgressBar.Size = UDim2.new(0, 0, 1, 0)
+        ProgressBar.BackgroundColor3 = Color3.new(1,1,1)
+        ProgressBar.BackgroundTransparency = 0.8
+        ProgressBar.BorderSizePixel = 0
+        ProgressBar.Parent = SubmitBtn
+
+        local isChecking = false
 
         local function CheckKey()
+            if isChecking then return end
+            isChecking = true
+            
+            local originalText = SubmitBtn.Text
+            SubmitBtn.Text = "Checking..."
+            
+            -- Progress Bar Animation
+            ProgressBar.Size = UDim2.new(0, 0, 1, 0)
+            local tween = TweenService:Create(ProgressBar, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)})
+            tween:Play()
+            
+            -- Simulate network delay or wait for tween
+            task.wait(1.5)
+
             local Input = KeyInput.Text:gsub("%s+", "")
             local ValidKey = Config.KeySettings.Key
             
             if Config.KeySettings.GrabKeyFromSite then
                 local s, r = pcall(function() return game:HttpGet(Config.KeySettings.Site) end)
-                if s then ValidKey = r:gsub("[\n\r]", " "):gsub("%s+", "") end
+                if s then 
+                    ValidKey = r:gsub("[\n\r]", " "):gsub("%s+", "") 
+                else
+                    -- Error handling
+                    Window:Notification("Error", "Failed to fetch key from site", 3)
+                    SubmitBtn.Text = "Error"
+                    task.wait(1)
+                    SubmitBtn.Text = originalText
+                    ProgressBar.Size = UDim2.new(0, 0, 1, 0)
+                    isChecking = false
+                    return
+                end
             end
 
             if Input == ValidKey then
+                SubmitBtn.Text = "Success!"
+                SubmitBtn.BackgroundColor3 = Color3.fromRGB(40, 200, 60) -- Green
+                task.wait(0.5)
                 TweenService:Create(Dimmer, TweenInfo.new(0.5), {BackgroundTransparency = 1}):Play()
+                TweenService:Create(KeyFrame, TweenInfo.new(0.5), {Position = UDim2.new(0.5, -210, 1.5, 0)}):Play() -- Slide down
                 task.wait(0.5)
                 Dimmer:Destroy()
                 MainFrame.Visible = true
                 Window:Notification("System", "Access Granted", 3)
             else
-                KeyInput.Text = "Invalid Key"
+                SubmitBtn.Text = "Invalid Key"
+                SubmitBtn.BackgroundColor3 = Color3.fromRGB(200, 40, 40) -- Red
+                TweenService:Create(KeyFrame, TweenInfo.new(0.05), {Position = UDim2.new(0.5, -215, 0.5, -130)}):Play()
+                task.wait(0.05)
+                TweenService:Create(KeyFrame, TweenInfo.new(0.05), {Position = UDim2.new(0.5, -205, 0.5, -130)}):Play()
+                task.wait(0.05)
+                TweenService:Create(KeyFrame, TweenInfo.new(0.05), {Position = UDim2.new(0.5, -210, 0.5, -130)}):Play()
+                
                 task.wait(1)
+                SubmitBtn.Text = originalText
+                SubmitBtn.BackgroundColor3 = THEME.Accent
+                ProgressBar.Size = UDim2.new(0, 0, 1, 0)
                 KeyInput.Text = ""
             end
+            isChecking = false
         end
 
         SubmitBtn.MouseButton1Click:Connect(CheckKey)
@@ -1154,17 +1238,17 @@ function Library:CreateWindow(Config)
             if enterPressed then CheckKey() end
         end)
 
-        if (Config.KeySettings.Site and Config.KeySettings.Site ~= "") or (Config.KeySettings.Discord and Config.KeySettings.Discord ~= "") then
-            local GetKeyBtn = Instance.new("TextButton")
-            GetKeyBtn.Size = UDim2.new(0.8, 0, 0, 40)
-            GetKeyBtn.Position = UDim2.new(0.1, 0, 0.74, 0)
+        -- Get Key Button
+        local GetKeyBtn = Instance.new("TextButton")
+        GetKeyBtn.Size = UDim2.new(0.4, 0, 0, 40)
+        GetKeyBtn.Position = UDim2.new(0.075, 0, 0.55, 0)
             GetKeyBtn.BackgroundColor3 = THEME.ElementBackground
-            GetKeyBtn.BackgroundTransparency = 0
             GetKeyBtn.Text = "Get Key"
             GetKeyBtn.Font = Enum.Font.GothamBold
-            GetKeyBtn.TextColor3 = THEME.TextColor
+            GetKeyBtn.TextColor3 = THEME.TextDim
             GetKeyBtn.TextSize = 14
-            GetKeyBtn.Parent = KeyFrame
+            GetKeyBtn.AutoButtonColor = false
+            GetKeyBtn.Parent = Content
 
             local GetKeyCorner = Instance.new("UICorner")
             GetKeyCorner.CornerRadius = UDim.new(0, 6)
@@ -1177,28 +1261,38 @@ function Library:CreateWindow(Config)
 
             GetKeyBtn.MouseEnter:Connect(function()
                 TweenService:Create(GetKeyStroke, TweenInfo.new(0.2), {Color = THEME.Accent}):Play()
+                TweenService:Create(GetKeyBtn, TweenInfo.new(0.2), {TextColor3 = THEME.TextColor}):Play()
             end)
             GetKeyBtn.MouseLeave:Connect(function()
                 TweenService:Create(GetKeyStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
+                TweenService:Create(GetKeyBtn, TweenInfo.new(0.2), {TextColor3 = THEME.TextDim}):Play()
             end)
             
             GetKeyBtn.MouseButton1Click:Connect(function()
                 local link = Config.KeySettings.Discord ~= "" and Config.KeySettings.Discord or Config.KeySettings.Site
-                if setclipboard then setclipboard(link) end
-                GetKeyBtn.Text = "Copied to Clipboard!"
+                if setclipboard then 
+                    setclipboard(link) 
+                    Window:Notification("System", "Link copied to clipboard", 2)
+                end
+                GetKeyBtn.Text = "Copied!"
                 task.wait(2)
                 GetKeyBtn.Text = "Get Key"
             end)
-        end
         
+        -- Close Button
         local CloseKey = Instance.new("TextButton")
-        CloseKey.Size = UDim2.new(0, 20, 0, 20)
-        CloseKey.Position = UDim2.new(1, -25, 0, 5)
+        CloseKey.Size = UDim2.new(0, 30, 0, 30)
+        CloseKey.Position = UDim2.new(1, -35, 0, 20)
         CloseKey.BackgroundTransparency = 1
-        CloseKey.Text = "X"
+        CloseKey.Text = "×"
         CloseKey.TextColor3 = Color3.fromRGB(150, 150, 150)
-        CloseKey.Font = Enum.Font.GothamBold
+        CloseKey.Font = Enum.Font.Gotham
+        CloseKey.TextSize = 24
         CloseKey.Parent = KeyFrame
+        
+        CloseKey.MouseEnter:Connect(function() CloseKey.TextColor3 = Color3.fromRGB(255, 255, 255) end)
+        CloseKey.MouseLeave:Connect(function() CloseKey.TextColor3 = Color3.fromRGB(150, 150, 150) end)
+        
         CloseKey.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
     end
 
