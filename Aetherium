@@ -479,7 +479,7 @@ function Library:CreateWindow(Config)
         TabBtn.Text = Name
         TabBtn.Font = Enum.Font.Gotham
         TabBtn.TextSize = 13
-        TabBtn.TextColor3 = THEME.TextDim
+        TabBtn.TextColor3 = THEME.TextColor
         TabBtn.BackgroundColor3 = THEME.ElementBackground
         TabBtn.Size = UDim2.new(0, 0, 1, 0)
         TabBtn.AutomaticSize = Enum.AutomaticSize.X
@@ -539,7 +539,7 @@ function Library:CreateWindow(Config)
             for _, v in pairs(TabContainer:GetChildren()) do
                 if v:IsA("TextButton") then
                     TweenService:Create(v, TweenInfo.new(0.2), {
-                        TextColor3 = THEME.TextDim,
+                        TextColor3 = THEME.TextColor,
                         BackgroundColor3 = THEME.ElementBackground,
                     }):Play()
                     TweenService:Create(v.UIStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
@@ -725,7 +725,7 @@ function Library:CreateWindow(Config)
             local ValueLabel = Instance.new("TextLabel")
             ValueLabel.Text = tostring(Value)
             ValueLabel.Font = Enum.Font.Gotham
-            ValueLabel.TextColor3 = THEME.TextDim
+            ValueLabel.TextColor3 = THEME.TextColor
             ValueLabel.TextSize = 14
             ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
             ValueLabel.BackgroundTransparency = 1
@@ -852,7 +852,7 @@ function Library:CreateWindow(Config)
             local SelectedLabel = Instance.new("TextLabel")
             SelectedLabel.Text = Selected
             SelectedLabel.Font = Enum.Font.Gotham
-            SelectedLabel.TextColor3 = THEME.TextDim
+            SelectedLabel.TextColor3 = THEME.TextColor
             SelectedLabel.TextSize = 14
             SelectedLabel.TextXAlignment = Enum.TextXAlignment.Right
             SelectedLabel.BackgroundTransparency = 1
@@ -896,7 +896,7 @@ function Library:CreateWindow(Config)
                     OptBtn.BackgroundColor3 = THEME.ElementBackground
                     OptBtn.Text = option
                     OptBtn.Font = Enum.Font.Gotham
-                    OptBtn.TextColor3 = THEME.TextDim
+                    OptBtn.TextColor3 = THEME.TextColor
                     OptBtn.TextSize = 14
                     OptBtn.TextXAlignment = Enum.TextXAlignment.Left
                     OptBtn.Parent = OptionList
@@ -914,7 +914,7 @@ function Library:CreateWindow(Config)
                     OptBtn.MouseLeave:Connect(function()
                         TweenService:Create(OptBtn, TweenInfo.new(0.2), {
                             BackgroundColor3 = THEME.ElementBackground,
-                            TextColor3 = THEME.TextDim
+                            TextColor3 = THEME.TextColor
                         }):Play()
                     end)
 
