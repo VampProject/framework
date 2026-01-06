@@ -1056,7 +1056,7 @@ function Library:CreateWindow(Config)
         Dimmer.Name = "KeySystemDimmer"
         Dimmer.Size = UDim2.new(1, 0, 1, 0)
         Dimmer.BackgroundColor3 = Color3.new(0, 0, 0)
-        Dimmer.BackgroundTransparency = 0.3
+        Dimmer.BackgroundTransparency = 1
         Dimmer.ZIndex = 9999
         Dimmer.Parent = ScreenGui
 
@@ -1070,7 +1070,7 @@ function Library:CreateWindow(Config)
         KeyFrame.Name = "KeyFrame"
         KeyFrame.Size = UDim2.new(0, 450, 0, 300)
         KeyFrame.Position = UDim2.new(0.5, -225, 0.5, -150)
-        KeyFrame.BackgroundColor3 = Color3.fromRGB(245, 245, 247)
+        KeyFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
         KeyFrame.BorderSizePixel = 0
         KeyFrame.ClipsDescendants = true
         KeyFrame.BackgroundTransparency = 1
@@ -1080,7 +1080,7 @@ function Library:CreateWindow(Config)
         local WindowBg = Instance.new("Frame")
         WindowBg.Name = "WindowBackground"
         WindowBg.Size = UDim2.new(1, 0, 1, 0)
-        WindowBg.BackgroundColor3 = Color3.fromRGB(245, 245, 247)
+        WindowBg.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
         WindowBg.BorderSizePixel = 0
         WindowBg.ZIndex = 1
         WindowBg.Parent = KeyFrame
@@ -1091,9 +1091,9 @@ function Library:CreateWindow(Config)
 
         local BgGradient = Instance.new("UIGradient")
         BgGradient.Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(245, 245, 247)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(235, 235, 240))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 40)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(25, 25, 30)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 25))
         }
         BgGradient.Rotation = 135
         BgGradient.Parent = WindowBg
@@ -1106,7 +1106,7 @@ function Library:CreateWindow(Config)
         Shadow.BackgroundTransparency = 1
         Shadow.Image = "rbxassetid://5554236805"
         Shadow.ImageColor3 = Color3.new(0, 0, 0)
-        Shadow.ImageTransparency = 0.7
+        Shadow.ImageTransparency = 
         Shadow.ScaleType = Enum.ScaleType.Slice
         Shadow.SliceCenter = Rect.new(23, 23, 277, 277)
         Shadow.ZIndex = 0
@@ -1144,7 +1144,7 @@ function Library:CreateWindow(Config)
         local Titlebar = Instance.new("Frame")
         Titlebar.Name = "Titlebar"
         Titlebar.Size = UDim2.new(1, 0, 0, 52)
-        Titlebar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Titlebar.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
         Titlebar.BackgroundTransparency = 0.3
         Titlebar.BorderSizePixel = 0
         Titlebar.ZIndex = 3
@@ -1156,8 +1156,8 @@ function Library:CreateWindow(Config)
 
         local TitlebarGradient = Instance.new("UIGradient")
         TitlebarGradient.Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(248, 248, 250))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 45)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(30, 30, 35))
         }
         TitlebarGradient.Rotation = 90
         TitlebarGradient.Parent = Titlebar
@@ -1166,7 +1166,7 @@ function Library:CreateWindow(Config)
         local TitlebarExtension = Instance.new("Frame")
         TitlebarExtension.Size = UDim2.new(1, 0, 0, 12)
         TitlebarExtension.Position = UDim2.new(0, 0, 1, -12)
-        TitlebarExtension.BackgroundColor3 = Color3.fromRGB(248, 248, 250)
+        TitlebarExtension.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
         TitlebarExtension.BorderSizePixel = 0
         TitlebarExtension.ZIndex = 3
         TitlebarExtension.Parent = Titlebar
@@ -1174,7 +1174,7 @@ function Library:CreateWindow(Config)
         local TitlebarDivider = Instance.new("Frame")
         TitlebarDivider.Size = UDim2.new(1, 0, 0, 1)
         TitlebarDivider.Position = UDim2.new(0, 0, 1, 0)
-        TitlebarDivider.BackgroundColor3 = Color3.fromRGB(200, 200, 205)
+        TitlebarDivider.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
         TitlebarDivider.BackgroundTransparency = 0.5
         TitlebarDivider.BorderSizePixel = 0
         TitlebarDivider.ZIndex = 4
@@ -1279,7 +1279,7 @@ function Library:CreateWindow(Config)
         HeaderTitle.Text = "Aetherium Key System"
         HeaderTitle.Font = Enum.Font.GothamMedium
         HeaderTitle.TextSize = 13
-        HeaderTitle.TextColor3 = Color3.fromRGB(60, 60, 67)
+        HeaderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
         HeaderTitle.Size = UDim2.new(0, 200, 1, 0)
         HeaderTitle.Position = UDim2.new(0.5, -55, 0, 0)
         HeaderTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -1303,7 +1303,7 @@ function Library:CreateWindow(Config)
         Subtitle.Text = "Enter your access key to continue"
         Subtitle.Font = Enum.Font.Gotham
         Subtitle.TextSize = 12
-        Subtitle.TextColor3 = Color3.fromRGB(142, 142, 147)
+        Subtitle.TextColor3 = Color3.fromRGB(180, 180, 180)
         Subtitle.Size = UDim2.new(1, 0, 0, 20)
         Subtitle.Position = UDim2.new(0, 0, 0, 0)
         Subtitle.TextXAlignment = Enum.TextXAlignment.Center
@@ -1315,7 +1315,7 @@ function Library:CreateWindow(Config)
         local InputContainer = Instance.new("Frame")
         InputContainer.Size = UDim2.new(1, 0, 0, 48)
         InputContainer.Position = UDim2.new(0, 0, 0, 35)
-        InputContainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        InputContainer.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
         InputContainer.BorderSizePixel = 0
         InputContainer.ZIndex = 4
         InputContainer.Parent = Content
@@ -1326,7 +1326,7 @@ function Library:CreateWindow(Config)
 
         local InputStroke = Instance.new("UIStroke")
         InputStroke.Thickness = 1
-        InputStroke.Color = Color3.fromRGB(209, 209, 214)
+        InputStroke.Color = Color3.fromRGB(60, 60, 60)
         InputStroke.Transparency = 0
         InputStroke.Parent = InputContainer
 
@@ -1343,9 +1343,9 @@ function Library:CreateWindow(Config)
         KeyInput.Size = UDim2.new(1, -20, 1, 0)
         KeyInput.Position = UDim2.new(0, 10, 0, 0)
         KeyInput.BackgroundTransparency = 1
-        KeyInput.TextColor3 = Color3.fromRGB(60, 60, 67)
+        KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
         KeyInput.PlaceholderText = "Enter your key here..."
-        KeyInput.PlaceholderColor3 = Color3.fromRGB(174, 174, 178)
+        KeyInput.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
         KeyInput.Font = Enum.Font.Gotham
         KeyInput.TextSize = 14
         KeyInput.TextXAlignment = Enum.TextXAlignment.Left
@@ -1354,11 +1354,11 @@ function Library:CreateWindow(Config)
 
         -- Focus animations
         KeyInput.Focused:Connect(function()
-            TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(0, 122, 255), Thickness = 2}):Play()
-            TweenService:Create(InputContainer, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(255, 255, 255), Thickness = 1.5}):Play()
+            TweenService:Create(InputContainer, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 50, 55)}):Play()
         end)
         KeyInput.FocusLost:Connect(function()
-            TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(209, 209, 214), Thickness = 1}):Play()
+            TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(60, 60, 60), Thickness = 1}):Play()
         end)
 
         -- Buttons Container
@@ -1419,10 +1419,10 @@ function Library:CreateWindow(Config)
         local GetKeyBtn = Instance.new("TextButton")
         GetKeyBtn.Size = UDim2.new(0.48, 0, 1, 0)
         GetKeyBtn.Position = UDim2.new(0, 0, 0, 0)
-        GetKeyBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        GetKeyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
         GetKeyBtn.Text = "Get Key"
         GetKeyBtn.Font = Enum.Font.GothamMedium
-        GetKeyBtn.TextColor3 = Color3.fromRGB(0, 122, 255)
+        GetKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
         GetKeyBtn.TextSize = 13
         GetKeyBtn.AutoButtonColor = false
         GetKeyBtn.ZIndex = 5
@@ -1434,17 +1434,17 @@ function Library:CreateWindow(Config)
 
         local GetKeyStroke = Instance.new("UIStroke")
         GetKeyStroke.Thickness = 1
-        GetKeyStroke.Color = Color3.fromRGB(0, 122, 255)
+        GetKeyStroke.Color = Color3.fromRGB(60, 60, 60)
         GetKeyStroke.Transparency = 0.5
         GetKeyStroke.Parent = GetKeyBtn
 
         GetKeyBtn.MouseEnter:Connect(function()
-            TweenService:Create(GetKeyBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(245, 250, 255)}):Play()
-            TweenService:Create(GetKeyStroke, TweenInfo.new(0.2), {Transparency = 0}):Play()
+            TweenService:Create(GetKeyBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 50, 55)}):Play()
+            TweenService:Create(GetKeyStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(255, 255, 255), Transparency = 0}):Play()
         end)
         GetKeyBtn.MouseLeave:Connect(function()
-            TweenService:Create(GetKeyBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-            TweenService:Create(GetKeyStroke, TweenInfo.new(0.2), {Transparency = 0.5}):Play()
+            TweenService:Create(GetKeyBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 45)}):Play()
+            TweenService:Create(GetKeyStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(60, 60, 60), Transparency = 0.5}):Play()
         end)
 
         GetKeyBtn.MouseButton1Click:Connect(function()
