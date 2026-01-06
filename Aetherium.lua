@@ -474,10 +474,10 @@ function Library:CreateWindow(Config)
     local Window = {}
     local FirstTab = true
 
-    function Window:Tab(Name)
+    function Window:Tab(Name, Icon)
         -- Botón de pestaña
         local TabBtn = Instance.new("TextButton")
-        TabBtn.Text = Name
+        TabBtn.Text = ""
         TabBtn.Font = Enum.Font.Gotham
         TabBtn.TextSize = 13
         TabBtn.TextColor3 = THEME.TextColor
@@ -500,6 +500,34 @@ function Library:CreateWindow(Config)
         TabStroke.Color = THEME.Stroke
         TabStroke.Parent = TabBtn
 
+        local TabLayout = Instance.new("UIListLayout")
+        TabLayout.FillDirection = Enum.FillDirection.Horizontal
+        TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        TabLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+        TabLayout.Padding = UDim.new(0, 6)
+        TabLayout.Parent = TabBtn
+
+        if Icon and Icon ~= "" then
+            local TabIcon = Instance.new("ImageLabel")
+            TabIcon.Name = "Icon"
+            TabIcon.Size = UDim2.new(0, 16, 0, 16)
+            TabIcon.BackgroundTransparency = 1
+            TabIcon.Image = Icon
+            TabIcon.ImageColor3 = THEME.TextColor
+            TabIcon.Parent = TabBtn
+        end
+
+        local TabTitle = Instance.new("TextLabel")
+        TabTitle.Name = "Title"
+        TabTitle.Text = Name
+        TabTitle.Font = Enum.Font.Gotham
+        TabTitle.TextSize = 13
+        TabTitle.TextColor3 = THEME.TextColor
+        TabTitle.BackgroundTransparency = 1
+        TabTitle.AutomaticSize = Enum.AutomaticSize.X
+        TabTitle.Size = UDim2.new(0, 0, 1, 0)
+        TabTitle.Parent = TabBtn
+
         -- Contenido de la pestaña
         local TabFrame = Instance.new("ScrollingFrame")
         TabFrame.Name = Name .. "Frame"
@@ -521,7 +549,6 @@ function Library:CreateWindow(Config)
         if FirstTab then
             FirstTab = false
             TabFrame.Visible = true
-            TabBtn.TextColor3 = THEME.TextColor
             TabBtn.BackgroundColor3 = THEME.Accent
             TabStroke.Color = THEME.Accent
         end
@@ -539,19 +566,24 @@ function Library:CreateWindow(Config)
             end
             for _, v in pairs(TabContainer:GetChildren()) do
                 if v:IsA("TextButton") then
-                    TweenService:Create(v, TweenInfo.new(0.2), {
-                        TextColor3 = THEME.TextColor,
-                        BackgroundColor3 = THEME.ElementBackground,
-                    }):Play()
+                    TweenService:Create(v, TweenInfo.new(0.2), {BackgroundColor3 = THEME.ElementBackground}):Play()
                     TweenService:Create(v.UIStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
+                    
+                    local title = v:FindFirstChild("Title")
+                    if title then TweenService:Create(title, TweenInfo.new(0.2), {TextColor3 = THEME.TextColor}):Play() end
+                    local icon = v:FindFirstChild("Icon")
+                    if icon then TweenService:Create(icon, TweenInfo.new(0.2), {ImageColor3 = THEME.TextColor}):Play() end
                 end
             end
             TabFrame.Visible = true
-            TweenService:Create(TabBtn, TweenInfo.new(0.2), {
-                TextColor3 = THEME.TextColor,
-                BackgroundColor3 = THEME.Accent
-            }):Play()
+            
+            TweenService:Create(TabBtn, TweenInfo.new(0.2), {BackgroundColor3 = THEME.Accent}):Play()
             TweenService:Create(TabStroke, TweenInfo.new(0.2), {Color = THEME.Accent}):Play()
+            
+            local title = TabBtn:FindFirstChild("Title")
+            if title then TweenService:Create(title, TweenInfo.new(0.2), {TextColor3 = THEME.TextColor}):Play() end
+            local icon = TabBtn:FindFirstChild("Icon")
+            if icon then TweenService:Create(icon, TweenInfo.new(0.2), {ImageColor3 = THEME.TextColor}):Play() end
             
             TweenService:Create(ContentContainer, TweenInfo.new(0.2), {GroupTransparency = 0}):Play()
         end)
