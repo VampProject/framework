@@ -563,10 +563,6 @@ function Library:CreateWindow(Config)
             local Button = Instance.new("TextButton")
             Button.Size = UDim2.new(1, 0, 0, 36)
             Button.BackgroundColor3 = THEME.ElementBackground
-            Button.Text = Text
-            Button.Font = Enum.Font.GothamMedium
-            Button.TextColor3 = THEME.ButtonTextColor
-            Button.TextSize = 14
             Button.AutoButtonColor = false
             Button.Parent = TabFrame
 
@@ -586,6 +582,16 @@ function Library:CreateWindow(Config)
             }
             BtnGradient.Rotation = 90
             BtnGradient.Parent = Button
+
+            local BtnLabel = Instance.new("TextLabel")
+            BtnLabel.Text = Text
+            BtnLabel.Font = Enum.Font.GothamMedium
+            BtnLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            BtnLabel.TextSize = 14
+            BtnLabel.Size = UDim2.new(1, 0, 1, 0)
+            BtnLabel.BackgroundTransparency = 1
+            BtnLabel.ZIndex = 2
+            BtnLabel.Parent = Button
 
             Button.MouseEnter:Connect(function()
                 TweenService:Create(BtnStroke, TweenInfo.new(0.2), {Color = THEME.Accent}):Play()
