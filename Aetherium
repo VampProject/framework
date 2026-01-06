@@ -54,6 +54,7 @@ local THEME = {
 
 function Library:CreateWindow(Config)
     local Title = Config.Title or "UI Library"
+    local CleanupActions = {}
 
     -- Apply custom theme if provided
     if Config.Theme then
@@ -171,7 +172,7 @@ function Library:CreateWindow(Config)
     local Bg = Instance.new("Frame")
     Bg.Name = "Bg"
     Bg.Size = UDim2.new(1, 0, 1, 0)
-    Bg.BackgroundColor3 = THEME.Background
+    Bg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Bg.BorderSizePixel = 0
     Bg.ClipsDescendants = true
     Bg.Parent = MainFrame
@@ -182,8 +183,8 @@ function Library:CreateWindow(Config)
 
     local BgGradient = Instance.new("UIGradient")
     BgGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(45, 45, 50)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 30))
     }
     BgGradient.Rotation = 90
     BgGradient.Parent = Bg
@@ -205,8 +206,8 @@ function Library:CreateWindow(Config)
 
     local StrokeGradient = Instance.new("UIGradient")
     StrokeGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, THEME.Accent),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 60, 60))
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(80, 80, 85)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(30, 30, 35))
     }
     StrokeGradient.Rotation = 45
     StrokeGradient.Parent = MainStroke
@@ -291,10 +292,6 @@ function Library:CreateWindow(Config)
         TweenService:Create(MainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
             Size = targetSize, Position = targetPos
         }):Play()
-    end)
-
-    CloseBtn.MouseButton1Click:Connect(function()
-        ScreenGui:Destroy()
     end)
 
     -- Floating Widget
@@ -564,7 +561,7 @@ function Library:CreateWindow(Config)
         function TabObj:Button(Text, Callback)
             local Button = Instance.new("TextButton")
             Button.Size = UDim2.new(1, 0, 0, 36)
-            Button.BackgroundColor3 = THEME.ElementBackground
+            Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Button.Text = Text
             Button.Font = Enum.Font.GothamMedium
             Button.TextColor3 = THEME.TextColor
@@ -583,18 +580,18 @@ function Library:CreateWindow(Config)
 
             local BtnGradient = Instance.new("UIGradient")
             BtnGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
             }
             BtnGradient.Rotation = 90
             BtnGradient.Parent = Button
 
             Button.MouseEnter:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 46)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(220, 220, 220)}):Play()
                 TweenService:Create(BtnStroke, TweenInfo.new(0.2), {Color = THEME.Accent}):Play()
             end)
             Button.MouseLeave:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = THEME.ElementBackground}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
                 TweenService:Create(BtnStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
             end)
 
@@ -607,9 +604,13 @@ function Library:CreateWindow(Config)
         function TabObj:Toggle(Text, Default, Callback)
             local Toggled = Default or false
 
+            table.insert(CleanupActions, function()
+                if Callback then pcall(Callback, false) end
+            end)
+
             local ToggleBtn = Instance.new("TextButton")
             ToggleBtn.Size = UDim2.new(1, 0, 0, 36)
-            ToggleBtn.BackgroundColor3 = THEME.ElementBackground
+            ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ToggleBtn.Text = ""
             ToggleBtn.AutoButtonColor = false
             ToggleBtn.Parent = TabFrame
@@ -620,8 +621,8 @@ function Library:CreateWindow(Config)
 
             local ToggleGradient = Instance.new("UIGradient")
             ToggleGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
             }
             ToggleGradient.Rotation = 90
             ToggleGradient.Parent = ToggleBtn
@@ -687,9 +688,13 @@ function Library:CreateWindow(Config)
         function TabObj:Slider(Text, Min, Max, Default, Callback)
             local Value = Default or Min
 
+            table.insert(CleanupActions, function()
+                if Callback then pcall(Callback, Default or Min) end
+            end)
+
             local SliderBtn = Instance.new("TextButton")
             SliderBtn.Size = UDim2.new(1, 0, 0, 50)
-            SliderBtn.BackgroundColor3 = THEME.ElementBackground
+            SliderBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             SliderBtn.Text = ""
             SliderBtn.AutoButtonColor = false
             SliderBtn.Parent = TabFrame
@@ -700,8 +705,8 @@ function Library:CreateWindow(Config)
 
             local SliderGradient = Instance.new("UIGradient")
             SliderGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
             }
             SliderGradient.Rotation = 90
             SliderGradient.Parent = SliderBtn
@@ -806,7 +811,7 @@ function Library:CreateWindow(Config)
 
             local DropdownFrame = Instance.new("Frame")
             DropdownFrame.Size = UDim2.new(1, 0, 0, 36)
-            DropdownFrame.BackgroundColor3 = THEME.ElementBackground
+            DropdownFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             DropdownFrame.ClipsDescendants = true
             DropdownFrame.Parent = TabFrame
 
@@ -816,8 +821,8 @@ function Library:CreateWindow(Config)
 
             local DropGradient = Instance.new("UIGradient")
             DropGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
             }
             DropGradient.Rotation = 90
             DropGradient.Parent = DropdownFrame
@@ -1047,6 +1052,22 @@ function Library:CreateWindow(Config)
             Notif:Destroy()
         end)
     end
+
+    CloseBtn.MouseButton1Click:Connect(function()
+        -- Reset values (Options off, Sliders default)
+        for _, action in ipairs(CleanupActions) do
+            task.spawn(action)
+        end
+        
+        MainFrame.Visible = false
+        FloatingWidget.Visible = false
+        
+        Window:Notification("Goodbye", "Thanks for using Aetherium! Join our Discord for more scripts.", 3)
+        
+        task.delay(3, function()
+            ScreenGui:Destroy()
+        end)
+    end)
 
     -- Key System Logic
     local function ShowKeySystem()
