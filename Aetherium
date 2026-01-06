@@ -45,6 +45,7 @@ local THEME = {
     Topbar = Color3.fromRGB(28, 28, 32),
     ElementBackground = Color3.fromRGB(26, 26, 26), -- #1A1A1A
     TextColor = Color3.fromRGB(255, 255, 255),
+    ButtonTextColor = Color3.fromRGB(255, 255, 255),
     TextDim = Color3.fromRGB(150, 150, 150),
     Accent = Color3.fromRGB(0, 122, 255), -- Electric Blue
     Accent2 = Color3.fromRGB(50, 150, 255),
@@ -564,7 +565,7 @@ function Library:CreateWindow(Config)
             Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Button.Text = Text
             Button.Font = Enum.Font.GothamMedium
-            Button.TextColor3 = THEME.TextColor
+            Button.TextColor3 = THEME.ButtonTextColor
             Button.TextSize = 14
             Button.AutoButtonColor = false
             Button.Parent = TabFrame
