@@ -1267,9 +1267,17 @@ function Library:CreateWindow(Config)
         TitleContainer.ZIndex = 5
         TitleContainer.Parent = Titlebar
 
+        local TitleLayout = Instance.new("UIListLayout")
+        TitleLayout.FillDirection = Enum.FillDirection.Horizontal
+        TitleLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        TitleLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+        TitleLayout.Padding = UDim.new(0, 10)
+        TitleLayout.Parent = TitleContainer
+
         local HeaderIcon = Instance.new("ImageLabel")
         HeaderIcon.Size = UDim2.new(0, 24, 0, 24)
         HeaderIcon.Position = UDim2.new(0.5, -70, 0.5, -12)
+        HeaderIcon.Size = UDim2.new(0, 32, 0, 32)
         HeaderIcon.BackgroundTransparency = 1
         HeaderIcon.Image = "rbxassetid://114509698380342"
         HeaderIcon.ZIndex = 5
@@ -1279,10 +1287,14 @@ function Library:CreateWindow(Config)
         HeaderTitle.Text = "Aetherium Key System"
         HeaderTitle.Font = Enum.Font.GothamMedium
         HeaderTitle.TextSize = 13
+        HeaderTitle.Font = Enum.Font.GothamBold
+        HeaderTitle.TextSize = 16
         HeaderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
         HeaderTitle.Size = UDim2.new(0, 200, 1, 0)
         HeaderTitle.Position = UDim2.new(0.5, -55, 0, 0)
         HeaderTitle.TextXAlignment = Enum.TextXAlignment.Left
+        HeaderTitle.Size = UDim2.new(0, 0, 1, 0)
+        HeaderTitle.AutomaticSize = Enum.AutomaticSize.X
         HeaderTitle.BackgroundTransparency = 1
         HeaderTitle.ZIndex = 5
         HeaderTitle.Parent = TitleContainer
@@ -1339,9 +1351,20 @@ function Library:CreateWindow(Config)
         InputShadow.ZIndex = 3
         InputShadow.Parent = InputContainer
 
+        local InputIcon = Instance.new("ImageLabel")
+        InputIcon.Size = UDim2.new(0, 20, 0, 20)
+        InputIcon.Position = UDim2.new(0, 12, 0.5, -10)
+        InputIcon.BackgroundTransparency = 1
+        InputIcon.Image = "rbxassetid://6031097225"
+        InputIcon.ImageColor3 = Color3.fromRGB(150, 150, 150)
+        InputIcon.ZIndex = 5
+        InputIcon.Parent = InputContainer
+
         local KeyInput = Instance.new("TextBox")
         KeyInput.Size = UDim2.new(1, -20, 1, 0)
         KeyInput.Position = UDim2.new(0, 10, 0, 0)
+        KeyInput.Size = UDim2.new(1, -50, 1, 0)
+        KeyInput.Position = UDim2.new(0, 44, 0, 0)
         KeyInput.BackgroundTransparency = 1
         KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
         KeyInput.PlaceholderText = "Enter your key here..."
@@ -1356,9 +1379,11 @@ function Library:CreateWindow(Config)
         KeyInput.Focused:Connect(function()
             TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(255, 255, 255), Thickness = 1.5}):Play()
             TweenService:Create(InputContainer, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 50, 55)}):Play()
+            TweenService:Create(InputIcon, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
         end)
         KeyInput.FocusLost:Connect(function()
             TweenService:Create(InputStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(60, 60, 60), Thickness = 1}):Play()
+            TweenService:Create(InputIcon, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(150, 150, 150)}):Play()
         end)
 
         -- Buttons Container
