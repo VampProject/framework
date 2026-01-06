@@ -323,7 +323,7 @@ function Library:CreateWindow(Config)
     Aura.AnchorPoint = Vector2.new(0.5, 0.5)
     Aura.BackgroundTransparency = 1
     Aura.ImageColor3 = Color3.new(1, 1, 1)
-    Aura.ImageTransparency = 0.6
+    Aura.ImageTransparency = 1
     Aura.ZIndex = 0
     Aura.Parent = FloatingWidget
 
@@ -390,7 +390,7 @@ function Library:CreateWindow(Config)
     local MaximizeBtn = Instance.new("ImageButton")
     MaximizeBtn.Name = "Maximize"
     MaximizeBtn.BackgroundTransparency = 1
-    MaximizeBtn.Image = "rbxassetid://6031094678"
+    MaximizeBtn.Image = "rbxassetid://449042257"
     MaximizeBtn.Size = UDim2.new(0, 20, 0, 20)
     MaximizeBtn.Position = UDim2.new(1, -32, 0.5, -10)
     MaximizeBtn.ImageColor3 = THEME.TextDim
@@ -981,7 +981,7 @@ function Library:CreateWindow(Config)
         return TabObj
     end
 
-    function Window:Notification(Title, Content, Duration)
+    function Window:Notification(Title, Content, Duration, Icon)
         local Notif = Instance.new("Frame")
         Notif.Name = "Notification"
         Notif.Size = UDim2.new(1, 0, 0, 0) -- Start small
@@ -999,6 +999,22 @@ function Library:CreateWindow(Config)
         NotifStroke.Color = THEME.Stroke
         NotifStroke.Parent = Notif
 
+        local TextX = 10
+        if Icon then
+            local IconImg = Instance.new("ImageLabel")
+            IconImg.Size = UDim2.new(0, 32, 0, 32)
+            IconImg.Position = UDim2.new(0, 10, 0.5, -16)
+            IconImg.BackgroundTransparency = 1
+            IconImg.Image = Icon
+            IconImg.Parent = Notif
+            
+            local IconCorner = Instance.new("UICorner")
+            IconCorner.CornerRadius = UDim.new(1, 0)
+            IconCorner.Parent = IconImg
+            
+            TextX = 50
+        end
+
         local NotifTitle = Instance.new("TextLabel")
         NotifTitle.Text = Title
         NotifTitle.Font = Enum.Font.GothamBold
@@ -1006,8 +1022,8 @@ function Library:CreateWindow(Config)
         NotifTitle.TextSize = 14
         NotifTitle.TextXAlignment = Enum.TextXAlignment.Left
         NotifTitle.BackgroundTransparency = 1
-        NotifTitle.Size = UDim2.new(1, -20, 0, 20)
-        NotifTitle.Position = UDim2.new(0, 10, 0, 10)
+        NotifTitle.Size = UDim2.new(1, -TextX - 10, 0, 20)
+        NotifTitle.Position = UDim2.new(0, TextX, 0, 10)
         NotifTitle.Parent = Notif
 
         local NotifContent = Instance.new("TextLabel")
@@ -1018,8 +1034,8 @@ function Library:CreateWindow(Config)
         NotifContent.TextXAlignment = Enum.TextXAlignment.Left
         NotifContent.TextWrapped = true
         NotifContent.BackgroundTransparency = 1
-        NotifContent.Size = UDim2.new(1, -20, 0, 30)
-        NotifContent.Position = UDim2.new(0, 10, 0, 30)
+        NotifContent.Size = UDim2.new(1, -TextX - 10, 0, 30)
+        NotifContent.Position = UDim2.new(0, TextX, 0, 30)
         NotifContent.Parent = Notif
 
         -- Animation
@@ -1040,7 +1056,7 @@ function Library:CreateWindow(Config)
         Dimmer.Name = "KeySystemDimmer"
         Dimmer.Size = UDim2.new(1, 0, 1, 0)
         Dimmer.BackgroundColor3 = Color3.new(0, 0, 0)
-        Dimmer.BackgroundTransparency = 0.3
+        Dimmer.BackgroundTransparency = 1
         Dimmer.ZIndex = 9999
         Dimmer.Parent = ScreenGui
 
@@ -1056,6 +1072,14 @@ function Library:CreateWindow(Config)
         local KeyCorner = Instance.new("UICorner")
         KeyCorner.CornerRadius = UDim.new(0, 10)
         KeyCorner.Parent = KeyFrame
+
+        local KeyGradient = Instance.new("UIGradient")
+        KeyGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, THEME.Background),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 30, 40))
+        }
+        KeyGradient.Rotation = 45
+        KeyGradient.Parent = KeyFrame
 
         local KeyStroke = Instance.new("UIStroke")
         KeyStroke.Thickness = 1.5
@@ -1092,7 +1116,9 @@ function Library:CreateWindow(Config)
         local Header = Instance.new("Frame")
         Header.Name = "Header"
         Header.Size = UDim2.new(1, 0, 0, 70)
-        Header.BackgroundTransparency = 1
+        Header.BackgroundColor3 = THEME.Accent
+        Header.BackgroundTransparency = 0
+        Header.BorderSizePixel = 0
         Header.Parent = KeyFrame
 
         local HeaderIcon = Instance.new("ImageLabel")
@@ -1117,7 +1143,8 @@ function Library:CreateWindow(Config)
         HeaderSubtitle.Text = "Key System v2.5 | Secure Gateway"
         HeaderSubtitle.Font = Enum.Font.Gotham
         HeaderSubtitle.TextSize = 12
-        HeaderSubtitle.TextColor3 = THEME.Accent -- Subtitle color
+        HeaderSubtitle.TextColor3 = Color3.fromRGB(255, 255, 255) -- Subtitle color
+        HeaderSubtitle.TextTransparency = 0.1
         HeaderSubtitle.Size = UDim2.new(0, 200, 0, 15)
         HeaderSubtitle.Position = UDim2.new(0, 70, 0, 38)
         HeaderSubtitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -1240,7 +1267,9 @@ function Library:CreateWindow(Config)
                 task.wait(0.5)
                 Dimmer:Destroy()
                 MainFrame.Visible = true
-                Window:Notification("System", "Access Granted", 3)
+                
+                local thumb = Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
+                Window:Notification("Welcome", "Logged in as " .. LocalPlayer.Name, 5, thumb)
             else
                 SubmitBtn.Text = "Invalid Key"
                 SubmitBtn.BackgroundColor3 = Color3.fromRGB(200, 40, 40) -- Red
@@ -1307,19 +1336,36 @@ function Library:CreateWindow(Config)
         
         -- Close Button
         local CloseKey = Instance.new("TextButton")
-        CloseKey.Size = UDim2.new(0, 30, 0, 30)
-        CloseKey.Position = UDim2.new(1, -35, 0, 20)
-        CloseKey.BackgroundTransparency = 1
-        CloseKey.Text = "×"
-        CloseKey.TextColor3 = Color3.fromRGB(150, 150, 150)
-        CloseKey.Font = Enum.Font.Gotham
-        CloseKey.TextSize = 24
+        CloseKey.Size = UDim2.new(0, 14, 0, 14)
+        CloseKey.Position = UDim2.new(1, -24, 0, 12)
+        CloseKey.BackgroundColor3 = Color3.fromRGB(255, 95, 87) -- Mac Red
+        CloseKey.Text = ""
+        CloseKey.AutoButtonColor = false
         CloseKey.Parent = KeyFrame
         
-        CloseKey.MouseEnter:Connect(function() CloseKey.TextColor3 = Color3.fromRGB(255, 255, 255) end)
-        CloseKey.MouseLeave:Connect(function() CloseKey.TextColor3 = Color3.fromRGB(150, 150, 150) end)
+        local CloseCorner = Instance.new("UICorner")
+        CloseCorner.CornerRadius = UDim.new(1, 0)
+        CloseCorner.Parent = CloseKey
+        
+        CloseKey.MouseEnter:Connect(function() TweenService:Create(CloseKey, TweenInfo.new(0.2), {BackgroundTransparency = 0.3}):Play() end)
+        CloseKey.MouseLeave:Connect(function() TweenService:Create(CloseKey, TweenInfo.new(0.2), {BackgroundTransparency = 0}):Play() end)
         
         CloseKey.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+        -- Mac Visual Buttons (Yellow/Green)
+        local MinKey = Instance.new("Frame")
+        MinKey.Size = UDim2.new(0, 14, 0, 14)
+        MinKey.Position = UDim2.new(1, -46, 0, 12)
+        MinKey.BackgroundColor3 = Color3.fromRGB(255, 189, 46) -- Mac Yellow
+        MinKey.Parent = KeyFrame
+        Instance.new("UICorner", MinKey).CornerRadius = UDim.new(1, 0)
+
+        local MaxKey = Instance.new("Frame")
+        MaxKey.Size = UDim2.new(0, 14, 0, 14)
+        MaxKey.Position = UDim2.new(1, -68, 0, 12)
+        MaxKey.BackgroundColor3 = Color3.fromRGB(40, 201, 64) -- Mac Green
+        MaxKey.Parent = KeyFrame
+        Instance.new("UICorner", MaxKey).CornerRadius = UDim.new(1, 0)
     end
 
     -- Init Sequence (Loading)
