@@ -1556,6 +1556,7 @@ function Library:CreateWindow(Config)
             Position = UDim2.new(0.5, -225, 0.5, -150)
         }):Play()
         TweenService:Create(Dimmer, TweenInfo.new(0.4), {BackgroundTransparency = 0.3}):Play()
+    end
 
     -- Init Sequence (Loading)
     local function InitSequence()
