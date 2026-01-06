@@ -298,13 +298,16 @@ function Library:CreateWindow(Config)
     local FloatingWidget = Instance.new("Frame")
     FloatingWidget.Name = "FloatingWidget"
     FloatingWidget.Size = UDim2.new(0, 200, 0, 40)
+    FloatingWidget.Size = UDim2.new(0, 220, 0, 50)
     FloatingWidget.Position = UDim2.new(0.1, 0, 0.1, 0)
     FloatingWidget.BackgroundColor3 = THEME.Background
+    FloatingWidget.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
     FloatingWidget.Visible = false
     FloatingWidget.Parent = ScreenGui
 
     local FloatingCorner = Instance.new("UICorner")
     FloatingCorner.CornerRadius = UDim.new(0, 8)
+    FloatingCorner.CornerRadius = UDim.new(1, 0)
     FloatingCorner.Parent = FloatingWidget
 
     local FloatingStroke = Instance.new("UIStroke")
@@ -316,11 +319,15 @@ function Library:CreateWindow(Config)
     local Aura = Instance.new("ImageLabel")
     Aura.Name = "Aura"
     Aura.Size = UDim2.new(1, 40, 1, 40)
+    Aura.Size = UDim2.new(1, 60, 1, 60)
     Aura.Position = UDim2.new(0.5, 0, 0.5, 0)
     Aura.AnchorPoint = Vector2.new(0.5, 0.5)
     Aura.BackgroundTransparency = 1
     Aura.ImageColor3 = Color3.new(1, 1, 1)
     Aura.ImageTransparency = 1
+    Aura.Image = "rbxassetid://5554236805" -- Shadow/Glow
+    Aura.ImageColor3 = THEME.Accent
+    Aura.ImageTransparency = 0.6
     Aura.ZIndex = 0
     Aura.Parent = FloatingWidget
 
@@ -355,6 +362,9 @@ function Library:CreateWindow(Config)
         ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
         ColorSequenceKeypoint.new(0.5, Color3.new(0, 0, 0)),
         ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))
+        ColorSequenceKeypoint.new(0, THEME.Accent),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(1, THEME.Accent)
     }
     FloatingGradient.Parent = FloatingStroke
 
@@ -378,9 +388,13 @@ function Library:CreateWindow(Config)
     FloatingTitle.Font = Enum.Font.GothamBold
     FloatingTitle.TextSize = 14
     FloatingTitle.TextColor3 = THEME.TextColor
+    FloatingTitle.Font = Enum.Font.GothamBlack
+    FloatingTitle.TextSize = 16
+    FloatingTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     FloatingTitle.BackgroundTransparency = 1
     FloatingTitle.Size = UDim2.new(1, -80, 1, 0)
     FloatingTitle.Position = UDim2.new(0, 40, 0, 0)
+    FloatingTitle.Position = UDim2.new(0, 45, 0, 0)
     FloatingTitle.TextXAlignment = Enum.TextXAlignment.Left
     FloatingTitle.Parent = FloatingWidget
 
@@ -390,6 +404,7 @@ function Library:CreateWindow(Config)
     MaximizeBtn.Image = "rbxassetid://449042257"
     MaximizeBtn.Size = UDim2.new(0, 20, 0, 20)
     MaximizeBtn.Position = UDim2.new(1, -32, 0.5, -10)
+    MaximizeBtn.Position = UDim2.new(1, -35, 0.5, -10)
     MaximizeBtn.ImageColor3 = THEME.TextDim
     MaximizeBtn.Parent = FloatingWidget
 
@@ -410,6 +425,7 @@ function Library:CreateWindow(Config)
         FloatingWidget.Visible = true
         FloatingWidget.Size = UDim2.new(0, 0, 0, 40)
         TweenService:Create(FloatingWidget, TweenInfo.new(0.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), {Size = UDim2.new(0, 200, 0, 40)}):Play()
+        TweenService:Create(FloatingWidget, TweenInfo.new(0.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), {Size = UDim2.new(0, 220, 0, 50)}):Play()
     end
 
     MaximizeBtn.MouseButton1Click:Connect(function()
@@ -565,6 +581,7 @@ function Library:CreateWindow(Config)
             Button.Text = Text
             Button.Font = Enum.Font.GothamMedium
             Button.TextColor3 = THEME.TextColor
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
             Button.TextSize = 14
             Button.AutoButtonColor = false
             Button.Parent = TabFrame
@@ -631,6 +648,7 @@ function Library:CreateWindow(Config)
             Label.Text = Text
             Label.Font = Enum.Font.Gotham
             Label.TextColor3 = THEME.TextColor
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 14
             Label.TextXAlignment = Enum.TextXAlignment.Left
             Label.BackgroundTransparency = 1
@@ -715,6 +733,7 @@ function Library:CreateWindow(Config)
             Label.Text = Text
             Label.Font = Enum.Font.GothamMedium
             Label.TextColor3 = THEME.TextColor
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 14
             Label.TextXAlignment = Enum.TextXAlignment.Left
             Label.BackgroundTransparency = 1
@@ -726,6 +745,7 @@ function Library:CreateWindow(Config)
             ValueLabel.Text = tostring(Value)
             ValueLabel.Font = Enum.Font.Gotham
             ValueLabel.TextColor3 = THEME.TextDim
+            ValueLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
             ValueLabel.TextSize = 14
             ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
             ValueLabel.BackgroundTransparency = 1
@@ -842,6 +862,7 @@ function Library:CreateWindow(Config)
             Label.Text = Text
             Label.Font = Enum.Font.GothamMedium
             Label.TextColor3 = THEME.TextColor
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 14
             Label.TextXAlignment = Enum.TextXAlignment.Left
             Label.BackgroundTransparency = 1
@@ -853,6 +874,7 @@ function Library:CreateWindow(Config)
             SelectedLabel.Text = Selected
             SelectedLabel.Font = Enum.Font.Gotham
             SelectedLabel.TextColor3 = THEME.TextDim
+            SelectedLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
             SelectedLabel.TextSize = 14
             SelectedLabel.TextXAlignment = Enum.TextXAlignment.Right
             SelectedLabel.BackgroundTransparency = 1
@@ -897,6 +919,7 @@ function Library:CreateWindow(Config)
                     OptBtn.Text = option
                     OptBtn.Font = Enum.Font.Gotham
                     OptBtn.TextColor3 = THEME.TextDim
+                    OptBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
                     OptBtn.TextSize = 14
                     OptBtn.TextXAlignment = Enum.TextXAlignment.Left
                     OptBtn.Parent = OptionList
@@ -909,12 +932,14 @@ function Library:CreateWindow(Config)
                         TweenService:Create(OptBtn, TweenInfo.new(0.2), {
                             BackgroundColor3 = Color3.fromRGB(45, 45, 45),
                             TextColor3 = THEME.TextColor
+                            TextColor3 = Color3.fromRGB(255, 255, 255)
                         }):Play()
                     end)
                     OptBtn.MouseLeave:Connect(function()
                         TweenService:Create(OptBtn, TweenInfo.new(0.2), {
                             BackgroundColor3 = THEME.ElementBackground,
                             TextColor3 = THEME.TextDim
+                            TextColor3 = Color3.fromRGB(200, 200, 200)
                         }):Play()
                     end)
 
@@ -965,6 +990,7 @@ function Library:CreateWindow(Config)
             Label.Text = Text
             Label.Font = Enum.Font.Gotham
             Label.TextColor3 = THEME.TextColor
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 14
             Label.TextXAlignment = Enum.TextXAlignment.Left
             Label.BackgroundTransparency = 1
