@@ -562,7 +562,7 @@ function Library:CreateWindow(Config)
         function TabObj:Button(Text, Callback)
             local Button = Instance.new("TextButton")
             Button.Size = UDim2.new(1, 0, 0, 36)
-            Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Button.BackgroundColor3 = THEME.ElementBackground
             Button.Text = Text
             Button.Font = Enum.Font.GothamMedium
             Button.TextColor3 = THEME.ButtonTextColor
@@ -581,18 +581,16 @@ function Library:CreateWindow(Config)
 
             local BtnGradient = Instance.new("UIGradient")
             BtnGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
+                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(210, 210, 210))
             }
             BtnGradient.Rotation = 90
             BtnGradient.Parent = Button
 
             Button.MouseEnter:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(220, 220, 220)}):Play()
                 TweenService:Create(BtnStroke, TweenInfo.new(0.2), {Color = THEME.Accent}):Play()
             end)
             Button.MouseLeave:Connect(function()
-                TweenService:Create(Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
                 TweenService:Create(BtnStroke, TweenInfo.new(0.2), {Color = THEME.Stroke}):Play()
             end)
 
@@ -611,7 +609,7 @@ function Library:CreateWindow(Config)
 
             local ToggleBtn = Instance.new("TextButton")
             ToggleBtn.Size = UDim2.new(1, 0, 0, 36)
-            ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            ToggleBtn.BackgroundColor3 = THEME.ElementBackground
             ToggleBtn.Text = ""
             ToggleBtn.AutoButtonColor = false
             ToggleBtn.Parent = TabFrame
@@ -622,8 +620,8 @@ function Library:CreateWindow(Config)
 
             local ToggleGradient = Instance.new("UIGradient")
             ToggleGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
+                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(210, 210, 210))
             }
             ToggleGradient.Rotation = 90
             ToggleGradient.Parent = ToggleBtn
@@ -695,7 +693,7 @@ function Library:CreateWindow(Config)
 
             local SliderBtn = Instance.new("TextButton")
             SliderBtn.Size = UDim2.new(1, 0, 0, 50)
-            SliderBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SliderBtn.BackgroundColor3 = THEME.ElementBackground
             SliderBtn.Text = ""
             SliderBtn.AutoButtonColor = false
             SliderBtn.Parent = TabFrame
@@ -706,8 +704,8 @@ function Library:CreateWindow(Config)
 
             local SliderGradient = Instance.new("UIGradient")
             SliderGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
+                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(210, 210, 210))
             }
             SliderGradient.Rotation = 90
             SliderGradient.Parent = SliderBtn
@@ -812,7 +810,7 @@ function Library:CreateWindow(Config)
 
             local DropdownFrame = Instance.new("Frame")
             DropdownFrame.Size = UDim2.new(1, 0, 0, 36)
-            DropdownFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownFrame.BackgroundColor3 = THEME.ElementBackground
             DropdownFrame.ClipsDescendants = true
             DropdownFrame.Parent = TabFrame
 
@@ -822,8 +820,8 @@ function Library:CreateWindow(Config)
 
             local DropGradient = Instance.new("UIGradient")
             DropGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 55, 60)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 40, 45))
+                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(210, 210, 210))
             }
             DropGradient.Rotation = 90
             DropGradient.Parent = DropdownFrame
