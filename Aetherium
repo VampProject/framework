@@ -1765,7 +1765,7 @@ function Library:CreateWindow(Config)
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.2.4"
+        VersionLabel.Text = "v1.2.6"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
