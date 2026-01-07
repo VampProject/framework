@@ -213,6 +213,32 @@ function Library:CreateWindow(Config)
     StrokeGradient.Rotation = 45
     StrokeGradient.Parent = MainStroke
 
+    -- Particulas Menu Principal (Background)
+    task.spawn(function()
+        while Bg.Parent do
+            local Particle = Instance.new("ImageLabel")
+            Particle.Size = UDim2.new(0, math.random(4, 8), 0, math.random(4, 8))
+            Particle.Position = UDim2.new(math.random(0, 100)/100, 0, 1, 0)
+            Particle.BackgroundTransparency = 1
+            Particle.Image = "rbxassetid://8539427585" -- Triangle
+            Particle.ImageColor3 = Color3.new(1, 1, 1)
+            Particle.ImageTransparency = 0.8
+            Particle.Rotation = math.random(0, 360)
+            Particle.ZIndex = 0
+            Particle.Parent = Bg
+            
+            local duration = math.random(5, 10)
+            TweenService:Create(Particle, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
+                Position = UDim2.new(Particle.Position.X.Scale, 0, -0.1, 0),
+                ImageTransparency = 1,
+                Rotation = Particle.Rotation + math.random(-90, 90)
+            }):Play()
+            
+            task.delay(duration, function() Particle:Destroy() end)
+            task.wait(0.5)
+        end
+    end)
+
     -- Topbar
     local Topbar = Instance.new("Frame")
     Topbar.Name = "Topbar"
@@ -256,8 +282,8 @@ function Library:CreateWindow(Config)
         local btn = Instance.new("TextButton")
         btn.Text = ""
         btn.BackgroundColor3 = color
-        btn.Size = UDim2.new(0, 14, 0, 14)
-        btn.Position = UDim2.new(1, offset, 0.5, -7)
+        btn.Size = UDim2.new(0, 24, 0, 24)
+        btn.Position = UDim2.new(1, offset, 0.5, -12)
         btn.AutoButtonColor = false
         btn.BackgroundTransparency = 0
         btn.ZIndex = 20
@@ -277,9 +303,9 @@ function Library:CreateWindow(Config)
         return btn
     end
 
-    local CloseBtn = createControlBtn(Color3.fromRGB(255, 95, 87), -24) -- Mac Red
-    local MinBtn = createControlBtn(Color3.fromRGB(255, 189, 46), -46) -- Mac Yellow
-    local MaxBtn = createControlBtn(Color3.fromRGB(40, 201, 64), -68) -- Mac Green (Visual)
+    local CloseBtn = createControlBtn(Color3.fromRGB(255, 95, 87), -34) -- Mac Red
+    local MinBtn = createControlBtn(Color3.fromRGB(255, 189, 46), -68) -- Mac Yellow
+    local MaxBtn = createControlBtn(Color3.fromRGB(40, 201, 64), -102) -- Mac Green (Visual)
 
     local Maximized = false
     local DefaultSize = UDim2.new(0, 550, 0, 350)
@@ -298,7 +324,7 @@ function Library:CreateWindow(Config)
     -- Floating Widget
     local FloatingWidget = Instance.new("Frame")
     FloatingWidget.Name = "FloatingWidget"
-    FloatingWidget.Size = UDim2.new(0, 200, 0, 40)
+    FloatingWidget.Size = UDim2.new(0, 250, 0, 60)
     FloatingWidget.Position = UDim2.new(0.1, 0, 0.1, 0)
     FloatingWidget.BackgroundColor3 = THEME.Background
     FloatingWidget.Visible = false
@@ -388,9 +414,9 @@ function Library:CreateWindow(Config)
     local MaximizeBtn = Instance.new("ImageButton")
     MaximizeBtn.Name = "Maximize"
     MaximizeBtn.BackgroundTransparency = 1
-    MaximizeBtn.Image = "rbxassetid://449042257"
-    MaximizeBtn.Size = UDim2.new(0, 20, 0, 20)
-    MaximizeBtn.Position = UDim2.new(1, -32, 0.5, -10)
+    MaximizeBtn.Image = "rbxassetid://449042257" -- Icono personalizable
+    MaximizeBtn.Size = UDim2.new(0, 40, 0, 40)
+    MaximizeBtn.Position = UDim2.new(1, -50, 0.5, -20)
     MaximizeBtn.ImageColor3 = THEME.TextDim
     MaximizeBtn.Parent = FloatingWidget
 
@@ -409,12 +435,12 @@ function Library:CreateWindow(Config)
         MainFrame.Visible = false
         
         FloatingWidget.Visible = true
-        FloatingWidget.Size = UDim2.new(0, 0, 0, 40)
-        TweenService:Create(FloatingWidget, TweenInfo.new(0.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), {Size = UDim2.new(0, 200, 0, 40)}):Play()
+        FloatingWidget.Size = UDim2.new(0, 0, 0, 60)
+        TweenService:Create(FloatingWidget, TweenInfo.new(0.5, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), {Size = UDim2.new(0, 250, 0, 60)}):Play()
     end
 
     MaximizeBtn.MouseButton1Click:Connect(function()
-        TweenService:Create(FloatingWidget, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Size = UDim2.new(0, 0, 0, 40)}):Play()
+        TweenService:Create(FloatingWidget, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Size = UDim2.new(0, 0, 0, 60)}):Play()
         task.wait(0.3)
         FloatingWidget.Visible = false
         
@@ -999,12 +1025,17 @@ function Library:CreateWindow(Config)
             Label.TextSize = 14
             Label.TextXAlignment = Enum.TextXAlignment.Left
             Label.BackgroundTransparency = 1
-            Label.Size = UDim2.new(1, -24, 0, 26)
+            Label.Size = UDim2.new(1, -24, 0, 0)
+            Label.AutomaticSize = Enum.AutomaticSize.Y
+            Label.TextWrapped = true
             Label.Position = UDim2.new(0, 12, 0, 0)
             Label.Parent = TabFrame
             
             local LabelPad = Instance.new("UIPadding")
             LabelPad.PaddingLeft = UDim.new(0, 12)
+            LabelPad.PaddingRight = UDim.new(0, 12)
+            LabelPad.PaddingTop = UDim.new(0, 6)
+            LabelPad.PaddingBottom = UDim.new(0, 6)
             LabelPad.Parent = Label
 
             local LabelMethods = {}
@@ -1012,6 +1043,23 @@ function Library:CreateWindow(Config)
                 Label.Text = NewText
             end
             return LabelMethods
+        end
+
+        -- Separator
+        function TabObj:Separator()
+            local Separator = Instance.new("Frame")
+            Separator.Size = UDim2.new(1, 0, 0, 1)
+            Separator.BackgroundColor3 = THEME.Stroke
+            Separator.BorderSizePixel = 0
+            Separator.Parent = TabFrame
+
+            local SepGradient = Instance.new("UIGradient")
+            SepGradient.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, THEME.Background),
+                ColorSequenceKeypoint.new(0.5, THEME.Stroke),
+                ColorSequenceKeypoint.new(1, THEME.Background)
+            }
+            SepGradient.Parent = Separator
         end
 
         return TabObj
