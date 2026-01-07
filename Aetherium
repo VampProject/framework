@@ -244,6 +244,33 @@ function Library:CreateWindow(Config)
         end
     end)
 
+    -- Light Animation (Rising from bottom)
+    task.spawn(function()
+        while Bg.Parent do
+            local Light = Instance.new("ImageLabel")
+            Light.Name = "LightParticle"
+            Light.Size = UDim2.new(0, math.random(40, 100), 0, math.random(40, 100))
+            Light.Position = UDim2.new(math.random(0, 100)/100, 0, 1.1, 0)
+            Light.AnchorPoint = Vector2.new(0.5, 0.5)
+            Light.BackgroundTransparency = 1
+            Light.Image = "rbxassetid://129224956712931" -- Soft Glow
+            Light.ImageColor3 = THEME.Accent
+            Light.ImageTransparency = 0.85
+            Light.ZIndex = 0
+            Light.Parent = Bg
+            
+            local duration = math.random(3, 6)
+            TweenService:Create(Light, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                Position = UDim2.new(Light.Position.X.Scale, 0, 0.3, 0),
+                ImageTransparency = 1,
+                Size = UDim2.new(0, 0, 0, 0)
+            }):Play()
+            
+            task.delay(duration, function() Light:Destroy() end)
+            task.wait(0.2)
+        end
+    end)
+
     -- Topbar
     local Topbar = Instance.new("Frame")
     Topbar.Name = "Topbar"
@@ -281,36 +308,6 @@ function Library:CreateWindow(Config)
     TitleLabel.Position = UDim2.new(0, 50, 0, 0)
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
     TitleLabel.Parent = Topbar
-
-    -- Topographic Animation (Header Right)
-    local TopoFrame = Instance.new("Frame")
-    TopoFrame.Name = "TopoFrame"
-    TopoFrame.Size = UDim2.new(0, 200, 1, 0)
-    TopoFrame.Position = UDim2.new(1, -200, 0, 0)
-    TopoFrame.BackgroundTransparency = 1
-    TopoFrame.ClipsDescendants = true
-    TopoFrame.ZIndex = 10
-    TopoFrame.Parent = Topbar
-
-    local TopoPattern = Instance.new("ImageLabel")
-    TopoPattern.Name = "Pattern"
-    TopoPattern.Size = UDim2.new(0, 300, 0, 300)
-    TopoPattern.Position = UDim2.new(0.5, 0, 0.5, 0)
-    TopoPattern.AnchorPoint = Vector2.new(0.5, 0.5)
-    TopoPattern.BackgroundTransparency = 1
-    TopoPattern.Image = "rbxassetid://10243094822" -- Topographic
-    TopoPattern.ImageTransparency = 0.85
-    TopoPattern.ImageColor3 = THEME.TextColor
-    TopoPattern.ZIndex = 10
-    TopoPattern.Parent = TopoFrame
-
-    task.spawn(function()
-        while TopoPattern.Parent do
-            TweenService:Create(TopoPattern, TweenInfo.new(30, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
-            task.wait(30)
-            TopoPattern.Rotation = 0
-        end
-    end)
 
     -- Botones de control (cerrar/minimizar)
     local function createControlBtn(color, offset)
@@ -1774,7 +1771,7 @@ function Library:CreateWindow(Config)
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.2.8"
+        VersionLabel.Text = "v1.2.9"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
