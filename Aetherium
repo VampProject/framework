@@ -1752,8 +1752,8 @@ function Library:CreateWindow(Config)
 
         local LoadIcon = Instance.new("ImageLabel")
         LoadIcon.Name = "LoadIcon"
-        LoadIcon.Size = UDim2.new(0, 48, 0, 48)
-        LoadIcon.Position = UDim2.new(0, 40, 0.42, 0)
+        LoadIcon.Size = UDim2.new(0, 80, 0, 80)
+        LoadIcon.Position = UDim2.new(0, 40, 0.35, 0)
         LoadIcon.AnchorPoint = Vector2.new(0, 0.5)
         LoadIcon.BackgroundTransparency = 1
         LoadIcon.Image = "rbxassetid://114509698380342"
@@ -1761,13 +1761,13 @@ function Library:CreateWindow(Config)
         LoadIcon.Parent = LoadingFrame
 
         local LoadingTitle = Instance.new("TextLabel")
-        LoadingTitle.Text = Title
+        LoadingTitle.Text = "Aetherium"
         LoadingTitle.Font = Enum.Font.GothamBold
         LoadingTitle.TextColor3 = THEME.TextColor
         LoadingTitle.TextSize = 26
         LoadingTitle.BackgroundTransparency = 1
         LoadingTitle.Size = UDim2.new(0, 200, 0, 30)
-        LoadingTitle.Position = UDim2.new(0, 100, 0.42, 0)
+        LoadingTitle.Position = UDim2.new(0, 40, 0.52, 0)
         LoadingTitle.AnchorPoint = Vector2.new(0, 0.5)
         LoadingTitle.TextXAlignment = Enum.TextXAlignment.Left
         LoadingTitle.ZIndex = 11
@@ -1776,7 +1776,7 @@ function Library:CreateWindow(Config)
         local LoadingBarBg = Instance.new("Frame")
         LoadingBarBg.Name = "LoadingBarBg"
         LoadingBarBg.Size = UDim2.new(0, 260, 0, 4)
-        LoadingBarBg.Position = UDim2.new(0, 40, 0.55, 0)
+        LoadingBarBg.Position = UDim2.new(0, 40, 0.62, 0)
         LoadingBarBg.AnchorPoint = Vector2.new(0, 0.5)
         LoadingBarBg.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
         LoadingBarBg.ZIndex = 11
@@ -1798,7 +1798,7 @@ function Library:CreateWindow(Config)
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.3.2"
+        VersionLabel.Text = "v1.3.3"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
@@ -1821,9 +1821,9 @@ function Library:CreateWindow(Config)
             TweenService:Create(LoadingBar, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0.4, 0, 1, 0)}):Play()
             LoadingText.Text = "Loading Assets & Scripts..."
             task.wait(2)
-            TweenService:Create(LoadingBar, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0.8, 0, 1, 0)}):Play()
+            TweenService:Create(LoadingBar, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0.8, 0, 1, 0)}):Play()
             LoadingText.Text = "Verifying Integrity..."
-            task.wait(1.5)
+            task.wait(2)
             TweenService:Create(LoadingBar, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)}):Play()
             LoadingText.Text = "Welcome!"
             task.wait(1)
