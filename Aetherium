@@ -282,6 +282,36 @@ function Library:CreateWindow(Config)
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
     TitleLabel.Parent = Topbar
 
+    -- Topographic Animation (Header Right)
+    local TopoFrame = Instance.new("Frame")
+    TopoFrame.Name = "TopoFrame"
+    TopoFrame.Size = UDim2.new(0, 200, 1, 0)
+    TopoFrame.Position = UDim2.new(1, -200, 0, 0)
+    TopoFrame.BackgroundTransparency = 1
+    TopoFrame.ClipsDescendants = true
+    TopoFrame.ZIndex = 10
+    TopoFrame.Parent = Topbar
+
+    local TopoPattern = Instance.new("ImageLabel")
+    TopoPattern.Name = "Pattern"
+    TopoPattern.Size = UDim2.new(0, 300, 0, 300)
+    TopoPattern.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TopoPattern.AnchorPoint = Vector2.new(0.5, 0.5)
+    TopoPattern.BackgroundTransparency = 1
+    TopoPattern.Image = "rbxassetid://10243094822" -- Topographic
+    TopoPattern.ImageTransparency = 0.85
+    TopoPattern.ImageColor3 = THEME.TextColor
+    TopoPattern.ZIndex = 10
+    TopoPattern.Parent = TopoFrame
+
+    task.spawn(function()
+        while TopoPattern.Parent do
+            TweenService:Create(TopoPattern, TweenInfo.new(30, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
+            task.wait(30)
+            TopoPattern.Rotation = 0
+        end
+    end)
+
     -- Botones de control (cerrar/minimizar)
     local function createControlBtn(color, offset)
         local btn = Instance.new("TextButton")
@@ -1744,7 +1774,7 @@ function Library:CreateWindow(Config)
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.2.7"
+        VersionLabel.Text = "v1.2.8"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
