@@ -1796,14 +1796,6 @@ function Library:CreateWindow(Config)
         LoadIcon.ZIndex = 11
         LoadIcon.Parent = LoadingFrame
 
-        task.spawn(function()
-            while LoadIcon.Parent do
-                TweenService:Create(LoadIcon, TweenInfo.new(2, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
-                task.wait(2)
-                LoadIcon.Rotation = 0
-            end
-        end)
-
         local LoadingTitle = Instance.new("TextLabel")
         LoadingTitle.Text = "Aetherium"
         LoadingTitle.Font = Enum.Font.GothamBold
@@ -1842,7 +1834,7 @@ function Library:CreateWindow(Config)
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.3.8"
+        VersionLabel.Text = "v1.3.9"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
