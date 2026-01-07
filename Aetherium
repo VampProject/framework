@@ -170,6 +170,10 @@ function Library:CreateWindow(Config)
     MainFrame.Visible = true -- Hidden until KeySystem/Init
     MainFrame.Parent = ScreenGui
 
+    local MainFrameCorner = Instance.new("UICorner")
+    MainFrameCorner.CornerRadius = THEME.CornerRadius
+    MainFrameCorner.Parent = MainFrame
+
     -- Background
     local Bg = Instance.new("Frame")
     Bg.Name = "Bg"
@@ -463,38 +467,13 @@ function Library:CreateWindow(Config)
     -- Contenedor de pestañas
     local TabContainer = Instance.new("CanvasGroup")
     TabContainer.Name = "TabContainer"
-    TabContainer.Size = UDim2.new(1, -24, 0, 40)
+    TabContainer.Size = UDim2.new(1, -24, 0, 32)
     TabContainer.Position = UDim2.new(0, 12, 0, 45)
-    TabContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 23)
-    TabContainer.BackgroundTransparency = 0
+    TabContainer.BackgroundTransparency = 1
     TabContainer.GroupTransparency = 0
     TabContainer.BorderSizePixel = 0
     TabContainer.ZIndex = 2
     TabContainer.Parent = MainFrame
-
-    local TabContainerCorner = Instance.new("UICorner")
-    TabContainerCorner.CornerRadius = UDim.new(0, 8)
-    TabContainerCorner.Parent = TabContainer
-
-    local TabContainerStroke = Instance.new("UIStroke")
-    TabContainerStroke.Thickness = 1
-    TabContainerStroke.Color = THEME.Stroke
-    TabContainerStroke.Parent = TabContainer
-
-    local TabContainerGradient = Instance.new("UIGradient")
-    TabContainerGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 30, 35)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 23))
-    }
-    TabContainerGradient.Rotation = 90
-    TabContainerGradient.Parent = TabContainer
-
-    local TabPad = Instance.new("UIPadding")
-    TabPad.PaddingLeft = UDim.new(0, 4)
-    TabPad.PaddingRight = UDim.new(0, 4)
-    TabPad.PaddingTop = UDim.new(0, 4)
-    TabPad.PaddingBottom = UDim.new(0, 4)
-    TabPad.Parent = TabContainer
 
     local TabLayout = Instance.new("UIListLayout")
     TabLayout.FillDirection = Enum.FillDirection.Horizontal
@@ -505,8 +484,8 @@ function Library:CreateWindow(Config)
     -- Contenedor de contenido
     local ContentContainer = Instance.new("CanvasGroup")
     ContentContainer.Name = "ContentContainer"
-    ContentContainer.Size = UDim2.new(1, -24, 1, -95)
-    ContentContainer.Position = UDim2.new(0, 12, 0, 90)
+    ContentContainer.Size = UDim2.new(1, -24, 1, -85)
+    ContentContainer.Position = UDim2.new(0, 12, 0, 80)
     ContentContainer.BackgroundTransparency = 1
     ContentContainer.GroupTransparency = 0
     ContentContainer.BorderSizePixel = 0
@@ -1765,7 +1744,7 @@ function Library:CreateWindow(Config)
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.2.6"
+        VersionLabel.Text = "v1.2.7"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
