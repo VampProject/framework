@@ -1746,24 +1746,38 @@ function Library:CreateWindow(Config)
         LoadingCharacter.BackgroundTransparency = 1
         LoadingCharacter.Image = "rbxassetid://87088112683038" -- Mona China
         LoadingCharacter.ImageTransparency = 0.1
+        LoadingCharacter.ImageColor3 = THEME.Accent
         LoadingCharacter.ZIndex = 10
         LoadingCharacter.Parent = LoadingFrame
 
         local LoadIcon = Instance.new("ImageLabel")
         LoadIcon.Name = "LoadIcon"
         LoadIcon.Size = UDim2.new(0, 48, 0, 48)
-        LoadIcon.Position = UDim2.new(0.5, 0, 0.5, -25)
-        LoadIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+        LoadIcon.Position = UDim2.new(0, 40, 0.42, 0)
+        LoadIcon.AnchorPoint = Vector2.new(0, 0.5)
         LoadIcon.BackgroundTransparency = 1
         LoadIcon.Image = "rbxassetid://114509698380342"
         LoadIcon.ZIndex = 11
         LoadIcon.Parent = LoadingFrame
 
+        local LoadingTitle = Instance.new("TextLabel")
+        LoadingTitle.Text = Title
+        LoadingTitle.Font = Enum.Font.GothamBold
+        LoadingTitle.TextColor3 = THEME.TextColor
+        LoadingTitle.TextSize = 26
+        LoadingTitle.BackgroundTransparency = 1
+        LoadingTitle.Size = UDim2.new(0, 200, 0, 30)
+        LoadingTitle.Position = UDim2.new(0, 100, 0.42, 0)
+        LoadingTitle.AnchorPoint = Vector2.new(0, 0.5)
+        LoadingTitle.TextXAlignment = Enum.TextXAlignment.Left
+        LoadingTitle.ZIndex = 11
+        LoadingTitle.Parent = LoadingFrame
+
         local LoadingBarBg = Instance.new("Frame")
         LoadingBarBg.Name = "LoadingBarBg"
-        LoadingBarBg.Size = UDim2.new(0.6, 0, 0, 4)
-        LoadingBarBg.Position = UDim2.new(0.5, 0, 0.5, 25)
-        LoadingBarBg.AnchorPoint = Vector2.new(0.5, 0.5)
+        LoadingBarBg.Size = UDim2.new(0, 260, 0, 4)
+        LoadingBarBg.Position = UDim2.new(0, 40, 0.55, 0)
+        LoadingBarBg.AnchorPoint = Vector2.new(0, 0.5)
         LoadingBarBg.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
         LoadingBarBg.ZIndex = 11
         LoadingBarBg.Parent = LoadingFrame
@@ -1779,11 +1793,12 @@ function Library:CreateWindow(Config)
         LoadingText.TextSize = 12
         LoadingText.BackgroundTransparency = 1
         LoadingText.Size = UDim2.new(1, 0, 0, 20)
-        LoadingText.Position = UDim2.new(0, 0, 1, 5)
+        LoadingText.Position = UDim2.new(0, 0, 1, 8)
+        LoadingText.TextXAlignment = Enum.TextXAlignment.Left
         LoadingText.Parent = LoadingBarBg
 
         local VersionLabel = Instance.new("TextLabel")
-        VersionLabel.Text = "v1.3.1"
+        VersionLabel.Text = "v1.3.2"
         VersionLabel.Font = Enum.Font.GothamBold
         VersionLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
         VersionLabel.TextSize = 12
@@ -1816,6 +1831,7 @@ function Library:CreateWindow(Config)
             local fadeInfo = TweenInfo.new(0.5)
             TweenService:Create(LoadingFrame, fadeInfo, {BackgroundTransparency = 1}):Play()
             TweenService:Create(LoadingText, fadeInfo, {TextTransparency = 1}):Play()
+            TweenService:Create(LoadingTitle, fadeInfo, {TextTransparency = 1}):Play()
             TweenService:Create(LoadIcon, fadeInfo, {ImageTransparency = 1}):Play()
             TweenService:Create(LoadingBarBg, fadeInfo, {BackgroundTransparency = 1}):Play()
             TweenService:Create(LoadingBar, fadeInfo, {BackgroundTransparency = 1}):Play()
